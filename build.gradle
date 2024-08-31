@@ -1,0 +1,154 @@
+plugins {
+    id 'java'
+    id "com.hypherionmc.modutils.orion" version "1.0.+"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id "xyz.wagyourtail.unimined" version "1.2.9"
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.+"
+}
+
+orion.setup {
+    enableMirrorMaven = true
+    enableReleasesMaven = true
+    enableSnapshotsMaven = true
+
+    dopplerToken = System.getenv("DOPPLER_KEY")
+
+    versioning {
+        var relType = project.properties["releaseType"] ?: "${release_type}"
+        identifier("${relType}")
+    }
+
+    tools {
+        lombok()
+        noLoader()
+    }
+}
+
+group = project_group
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+archivesBaseName = "${mod_name.replace(" ", "")}-Universal"
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+}
+
+configurations {
+    shade
+    modCompileOnly
+    implementation.extendsFrom shade
+    compileOnly.extendsFrom modCompileOnly
+}
+
+dependencies {
+    compileOnly "com.hypherionmc.craterlib:CraterLib-Common-1.20.4:${craterlib}:dev"
+    compileOnly "maven.modrinth:replaymod:1.20.4-2.6.14"
+
+    shade("dev.firstdark.discordrpc:discord-rpc:${rpc_version}")
+}
+
+shadowJar {
+    from sourceSets.main.output
+    configurations = [project.configurations.shade]
+    setArchiveClassifier(null)
+
+    relocate("dev.firstdark.rpc", "com.hypherionmc.simplerpc.rpcsdk")
+    exclude("logback.xml")
+}
+
+
+jar {
+    setArchiveClassifier("slim")
+    finalizedBy(shadowJar)
+
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_author,
+                'Specification-Version'   : project.jar.archiveVersion,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_author,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Timestamp'               : System.currentTimeMillis(),
+                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                'Built-On-Minecraft'      : minecraft_version
+        ])
+    }
+}
+
+/**
+ * ===============================================================================
+ * =       DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING        =
+ * ===============================================================================
+ */
+
+unimined.minecraft {
+    version minecraft_version
+
+    fabric {
+        loader fabric_loader
+    }
+
+    defaultRemapJar = false
+
+    mappings {
+        mojmap()
+        devNamespace "mojmap"
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
+    it.options.release = 17
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+processResources {
+    def buildProps = project.properties.clone()
+
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', "META-INF/mods.toml", "META-INF/neoforge.mods.toml"]) {
+        expand buildProps
+    }
+}
+
+shadowJar.doLast {
+    delete(jar.archiveFile.get())
+}
+
+publisher {
+    apiKeys {
+        modrinth System.getenv("MODRINTH_TOKEN")
+        curseforge System.getenv("CURSE_TOKEN")
+    }
+
+    setCurseID("${curse_id}")
+    setModrinthID("${modrinth_id}")
+    setVersion("release")
+    setChangelog("https://raw.githubusercontent.com/hypherionmc/simple-rpc-public/main/changelogs/changelog-fabic.md")
+    setProjectVersion("${project.version}")
+    setDisplayName("Simple RPC Universal ${project.version}")
+    setGameVersions("1.18.2", "1.19.2", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.4", "1.21", "1.21.1")
+    setLoaders("fabric", "forge", "neoforge", "quilt")
+    setArtifact(shadowJar)
+    setCurseEnvironment("both")
+    setIsManualRelease(true)
+
+    modrinthDepends {
+        required("craterlib")
+    }
+    curseDepends {
+        required("craterlib")
+    }
+}

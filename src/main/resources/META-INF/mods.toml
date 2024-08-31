@@ -1,0 +1,47 @@
+modLoader="javafml" #mandatory
+loaderVersion="[1,)"
+license="All rights reserved"
+issueTrackerURL="https://github.com/hypherionmc/simple-rpc-public/issues"
+
+[[mods]]
+    modId="${mod_id}"
+    version="${version}"
+    displayName="Simple RPC"
+    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    displayURL="https://www.curseforge.com/minecraft/mc-mods/simple-discord-rpc/"
+    logoFile="icon.png"
+    credits="HypherionMC"
+    authors="HypherionMC"
+    description='''
+    A simple discord RPC plugin for modpacks
+    '''
+    displayTest = "NONE"
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=false
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    mandatory=false
+    versionRange="[20.4,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=false
+    versionRange="[1.18.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="craterlib"
+    mandatory=true
+    type="required"
+    versionRange="[2.0,)"
+    ordering="AFTER"
+    side="CLIENT"

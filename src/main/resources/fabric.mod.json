@@ -1,0 +1,37 @@
+{
+    "schemaVersion": 1,
+    "id": "simplerpc",
+    "version": "${version}",
+
+    "name": "Simple RPC",
+    "description": "A simple Discord Rich Presence plugin for Modpacks",
+    "authors": [
+      "HypherionMC"
+    ],
+    "contact": {
+      "homepage": "https://www.curseforge.com/minecraft/mc-mods/simple-discord-rpc",
+      "issues": "https://github.com/hypherionmc/simple-rpc-public/issues",
+      "discord": "https://discord.gg/PdVnXf9"
+    },
+
+    "license": "All Rights Reserved",
+    "icon": "assets/simplerpc/icon.png",
+
+    "environment": "*",
+    "entrypoints": {
+      "client": [
+          "com.hypherionmc.simplerpc.loaders.fabric.SRPCFabricClient"
+      ]
+    },
+    "mixins": [
+      "simplerpc.fabric.mixins.json"
+    ],
+
+    "depends": {
+      "fabricloader": ">=0.14.19",
+      "fabric": "*",
+      "minecraft": ">=1.18.2",
+      "java": ">=17",
+      "craterlib": ">=2.0.0"
+    }
+  }

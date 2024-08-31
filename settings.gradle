@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url "https://mcentral.firstdark.dev/releases"
+        }
+        maven {
+            url "https://maven.firstdark.dev/releases"
+        }
+        maven {
+            url "https://maven.firstdark.dev/snapshots"
+        }
+    }
+}
+
+rootProject.name = 'SimpleRPC'
