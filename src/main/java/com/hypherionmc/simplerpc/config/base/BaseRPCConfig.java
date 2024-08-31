@@ -3,6 +3,7 @@ package com.hypherionmc.simplerpc.config.base;
 import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.simplerpc.RPCConstants;
+import com.hypherionmc.simplerpc.config.impl.ClientConfig;
 import com.hypherionmc.simplerpc.discord.ButtonWrapper;
 import shadow.hypherionmc.moonconfig.core.CommentedConfig;
 import shadow.hypherionmc.moonconfig.core.conversion.ObjectConverter;
@@ -87,6 +88,14 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
         int ver = config.contains("general.version") ? config.getInt("general.version") : config.getIntOrElse("version", 0);
 
         if (ver != getConfigVersion()) {
+            if (ver < 22 && this instanceof ClientConfig) {
+                config.close();
+                conf.getConfigPath().renameTo(new File(conf.getConfigPath().getAbsolutePath().replace(".toml", ".legacy")));
+                RPCConstants.logger.error("Your Simple RPC config file is too old and cannot be upgraded. A new one has been created and your old one backed up to simple-rpc.legacy");
+                newConfig.save();
+                return;
+            }
+
             /* Upgrade the config */
             new ObjectConverter().toConfig(conf, newConfig);
             updateConfigValuesInternal(config, newConfig, newConfig, "", ver);
