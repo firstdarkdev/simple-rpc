@@ -1,0 +1,48 @@
+pipeline {
+    agent {
+        docker {
+            image "registry.firstdark.dev/java17:latest"
+            alwaysPull true
+            args '-v gradle-cache:/home/gradle/.gradle'
+       }
+   }
+
+   environment {
+       GRADLE_USER_HOME = '/home/gradle/.gradle'
+   }
+
+    stages {
+        stage("Notify Discord") {
+            steps {
+                discordSend webhookURL: env.FDD_WH_ADMIN,
+                        title: "Deploy Started: Simple RPC Universal Deploy #${BUILD_NUMBER}",
+                        link: env.BUILD_URL,
+                        result: 'SUCCESS',
+                        description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
+            }
+        }
+        stage("Prepare") {
+            steps {
+                sh "chmod +x ./gradlew"
+                sh "./gradlew clean"
+            }
+        }
+        stage("Publish") {
+            steps {
+                sh "./gradlew publishMod -Prelease=true"
+            }
+        }
+    }
+    post {
+        always {
+            sh "./gradlew --stop"
+            deleteDir()
+
+            discordSend webhookURL: env.FDD_WH_ADMIN,
+                    title: "Simple RPC Universal Deploy #${BUILD_NUMBER}",
+                    link: env.BUILD_URL,
+                    result: currentBuild.currentResult,
+                    description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})\nStatus: ${currentBuild.currentResult}"
+        }
+    }
+}

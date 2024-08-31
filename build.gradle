@@ -131,10 +131,12 @@ publisher {
     apiKeys {
         modrinth System.getenv("MODRINTH_TOKEN")
         curseforge System.getenv("CURSE_TOKEN")
+        nightbloom(System.getenv("PLATFORM_KEY"))
     }
 
     setCurseID("${curse_id}")
     setModrinthID("${modrinth_id}")
+    setNightbloomID("simplerpc")
     setVersion("release")
     setChangelog("https://raw.githubusercontent.com/hypherionmc/simple-rpc-public/main/changelogs/changelog-fabic.md")
     setProjectVersion("${project.version}")
@@ -148,7 +150,12 @@ publisher {
     modrinthDepends {
         required("craterlib")
     }
+
     curseDepends {
+        required("craterlib")
+    }
+
+    nightbloomDepends {
         required("craterlib")
     }
 }
