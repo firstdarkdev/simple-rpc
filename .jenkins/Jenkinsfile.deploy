@@ -29,7 +29,7 @@ pipeline {
         }
         stage("Publish") {
             steps {
-                sh "./gradlew publishMod -Prelease=true"
+                sh "./gradlew publish publishMod -Prelease=true"
             }
         }
     }

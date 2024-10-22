@@ -4,6 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id "xyz.wagyourtail.unimined" version "1.2.9"
     id "com.hypherionmc.modutils.modpublisher" version "2.1.+"
+    id 'maven-publish'
 }
 
 orion.setup {
@@ -140,8 +141,8 @@ publisher {
     setVersion("release")
     setChangelog("https://raw.githubusercontent.com/hypherionmc/simple-rpc-public/main/changelogs/changelog-fabic.md")
     setProjectVersion("${project.version}")
-    setDisplayName("Simple RPC Universal ${project.version}")
-    setGameVersions("1.18.2", "1.19.2", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.4", "1.21", "1.21.1")
+    setDisplayName("[1.18.2 - 1.21.2] Simple RPC Universal ${project.version}")
+    setGameVersions("1.18.2", "1.19.2", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.4", "1.21", "1.21.1", "1.21.2")
     setLoaders("fabric", "forge", "neoforge", "quilt")
     setArtifact(shadowJar)
     setCurseEnvironment("both")
@@ -159,3 +160,31 @@ publisher {
         required("craterlib")
     }
 }
+
+tasks.register('javadocJar', Jar) {
+    from javadoc
+    setArchiveClassifier('javadoc')
+}
+
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allJava
+    setArchiveClassifier('sources')
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(shadowJar) {
+                builtBy shadowJar
+            }
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+
+    repositories {
+        maven orion.getPublishingMaven()
+    }
+}
+
+javadoc.enabled = true
