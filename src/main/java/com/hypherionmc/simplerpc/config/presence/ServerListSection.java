@@ -1,9 +1,9 @@
 package com.hypherionmc.simplerpc.config.presence;
 
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
-import com.hypherionmc.simplerpc.config.base.RichPresenceContainer;
-import com.hypherionmc.simplerpc.discord.ButtonWrapper;
-import com.hypherionmc.simplerpc.discord.RichPresenceBuilder;
+import com.hypherionmc.simplerpc.api.rpc.ButtonWrapper;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
 import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;

@@ -1,8 +1,8 @@
 package com.hypherionmc.simplerpc.integrations.launchers.types;
 
+import com.hypherionmc.simplerpc.api.utils.APIUtils;
 import com.hypherionmc.simplerpc.enums.LauncherType;
 import com.hypherionmc.simplerpc.integrations.launchers.Launcher;
-import com.hypherionmc.simplerpc.util.APIUtils;
 
 import java.io.File;
 import java.io.StringReader;
@@ -13,7 +13,7 @@ import java.util.Properties;
  *
  * MultiMC/Prism Launcher Detector
  */
-public class MultiMC implements Launcher {
+public final class MultiMC implements Launcher {
 
     private boolean hasLoaded = false;
     private String packName = "Unknown Pack";

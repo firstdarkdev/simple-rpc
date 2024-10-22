@@ -1,4 +1,4 @@
-import com.hypherionmc.simplerpc.util.variables.PlaceholderEngine;
+import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 
 public class PlaceholderTest {
 

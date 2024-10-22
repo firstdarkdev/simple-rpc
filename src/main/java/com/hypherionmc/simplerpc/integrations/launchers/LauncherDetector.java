@@ -7,7 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author HypherionSA
@@ -26,7 +26,13 @@ public final class LauncherDetector {
     private String launcherPackName = "Unknown Pack";
     private String launcherIcon = "unknown";
 
-    private final List<Launcher> supportedLaunchers = List.of(new ATLauncher(), new CurseForge(), new Modrinth(), new MultiMC(), new Technic());
+    private final ArrayList<Launcher> supportedLaunchers = new ArrayList<>() {{
+        new ATLauncher();
+        new CurseForge();
+        new Modrinth();
+        new MultiMC();
+        new Technic();
+    }};
 
     public void loadLaunchers() {
         for (Launcher l : supportedLaunchers) {

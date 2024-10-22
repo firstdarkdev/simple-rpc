@@ -1,10 +1,10 @@
-package com.hypherionmc.simplerpc.discord;
+package com.hypherionmc.simplerpc.api.rpc;
 
-import com.hypherionmc.simplerpc.util.variables.PlaceholderEngine;
+import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 import dev.firstdark.rpc.models.DiscordRichPresence;
 import lombok.RequiredArgsConstructor;
 
-import static com.hypherionmc.simplerpc.util.APIUtils.parseAndLimit;
+import static com.hypherionmc.simplerpc.api.utils.APIUtils.parseAndLimit;
 
 /**
  * @author HypherionSA

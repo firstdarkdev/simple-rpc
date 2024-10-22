@@ -1,6 +1,5 @@
-package com.hypherionmc.simplerpc.config.base;
+package com.hypherionmc.simplerpc.api.rpc;
 
-import com.hypherionmc.simplerpc.discord.RichPresenceBuilder;
 import org.apache.commons.lang3.StringUtils;
 
 /**

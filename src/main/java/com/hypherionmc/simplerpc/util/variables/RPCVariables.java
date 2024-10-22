@@ -1,20 +1,24 @@
 package com.hypherionmc.simplerpc.util.variables;
 
+import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.craterlib.nojang.core.BridgedBlockPos;
 import com.hypherionmc.craterlib.nojang.realmsclient.dto.BridgedRealmsServer;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypherionmc.simplerpc.api.events.RPCEvents;
+import com.hypherionmc.simplerpc.api.utils.APIUtils;
+import com.hypherionmc.simplerpc.api.utils.MCTimeUtils;
+import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
+import com.hypherionmc.simplerpc.api.variables.validation.NotNullValidator;
 import com.hypherionmc.simplerpc.config.objects.CustomVariablesConfig;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.integrations.ReplayModCompat;
 import com.hypherionmc.simplerpc.integrations.known.KnownBiomeHelper;
 import com.hypherionmc.simplerpc.integrations.known.KnownDimensionHelper;
 import com.hypherionmc.simplerpc.integrations.launchers.LauncherDetector;
-import com.hypherionmc.simplerpc.util.APIUtils;
 import com.hypherionmc.simplerpc.util.CompatUtils;
-import com.hypherionmc.simplerpc.util.MCTimeUtils;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,7 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * RPC Placeholders. Values here do not need null checks, because the internal resolver takes care of that
  */
-public class RPCVariables {
+public final class RPCVariables {
 
     private static final BridgedMinecraft minecraft = BridgedMinecraft.getInstance();
     public static BridgedRealmsServer realmsServer;
@@ -32,6 +36,7 @@ public class RPCVariables {
      * Register all valid Placeholders, including custom ones
      */
     public static void register() {
+
         PlaceholderEngine.INSTANCE.clear();
 
         // Global
@@ -45,18 +50,18 @@ public class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("images.server", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "none", () -> String.format("https://api.mcsrvstat.us/icon/%s", minecraft.getCurrentServer().ip()));
 
         // World - These only resolve when the player is in a game
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.name", () -> minecraft.getLevel() != null, "Unknown World", RPCVariables::resolveWorldName);
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", () -> minecraft.getLevel() != null, "Unknown World", () -> ChatUtils.resolve(minecraft.getLevel().getDifficulty(), false));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.savename", () -> minecraft.getLevel() != null, "World", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.name", NotNullValidator.of(minecraft.getLevel()), "Unknown World", RPCVariables::resolveWorldName);
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", NotNullValidator.of(minecraft.getLevel()), "Unknown World", () -> ChatUtils.resolve(minecraft.getLevel().getDifficulty(), false));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.savename", NotNullValidator.of(minecraft.getLevel()), "World", () -> {
             if (minecraft.getSinglePlayerServer() != null)
                 return minecraft.getSinglePlayerServer().getLevelName();
 
             return "Server World";
         });
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.12", () -> minecraft.getLevel() != null, "12:00 AM", () -> MCTimeUtils.format12(minecraft.getLevel().getDayTime()));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.24", () -> minecraft.getLevel() != null, "12:00", () -> MCTimeUtils.format24(minecraft.getLevel().getDayTime()));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.day", () -> minecraft.getLevel() != null, "1", () -> String.valueOf(minecraft.getLevel().dayTime() / 24000L));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.weather", () -> minecraft.getLevel() != null, "Clear", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.12", NotNullValidator.of(minecraft.getLevel()), "12:00 AM", () -> MCTimeUtils.format12(minecraft.getLevel().getDayTime()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.24", NotNullValidator.of(minecraft.getLevel()), "12:00", () -> MCTimeUtils.format24(minecraft.getLevel().getDayTime()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.day", NotNullValidator.of(minecraft.getLevel()), "1", () -> String.valueOf(minecraft.getLevel().dayTime() / 24000L));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.weather", NotNullValidator.of(minecraft.getLevel()), "Clear", () -> {
             if (minecraft.getLevel().isRaining())
                 return "Raining/Snowing";
 
@@ -68,7 +73,7 @@ public class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("world.biome", () -> minecraft.getPlayer() != null && minecraft.getLevel() != null, "Plains", RPCVariables::resolveBiomeName);
 
         // Player - This will only resolve if the player is in game
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", () -> minecraft.getPlayer() != null, "x: 0, y: 0, z: 0", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft.getLevel()), "x: 0, y: 0, z: 0", () -> {
             BridgedBlockPos pos = minecraft.getPlayer().getOnPos();
             return String.format("x: %s, y: %s, z: %s", pos.getX(), pos.getY(), pos.getZ());
         });
@@ -108,6 +113,8 @@ public class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("launcher.name", "Unknown Launcher", LauncherDetector.INSTANCE::getLauncherName);
         PlaceholderEngine.INSTANCE.registerPlaceholder("launcher.pack", "Unknown Pack", LauncherDetector.INSTANCE::getLauncherPackName);
         PlaceholderEngine.INSTANCE.registerPlaceholder("launcher.icon", "unknown", LauncherDetector.INSTANCE::getLauncherIcon);
+
+        CraterEventBus.INSTANCE.postEvent(RPCEvents.RegisterPlaceholders.of());
     }
 
     /**

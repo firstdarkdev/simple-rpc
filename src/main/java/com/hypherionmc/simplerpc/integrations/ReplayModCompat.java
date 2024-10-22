@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * Helper class to help the ReplayMod placeholders resolve
  */
-public class ReplayModCompat {
+public final class ReplayModCompat {
 
     public static final AtomicReference<String> renderTimeTaken = new AtomicReference<>("");
     public static final AtomicReference<String> renderTimeLeft = new AtomicReference<>("");

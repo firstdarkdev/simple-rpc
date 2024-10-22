@@ -1,6 +1,9 @@
 package com.hypherionmc.simplerpc.discord;
 
-import com.hypherionmc.simplerpc.config.base.RichPresenceOverrideHolder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceOverrideHolder;
+import com.hypherionmc.simplerpc.api.utils.APIUtils;
+import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
 import com.hypherionmc.simplerpc.config.impl.ReplayModConfig;
 import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
@@ -8,9 +11,9 @@ import com.hypherionmc.simplerpc.config.objects.DimensionSection;
 import com.hypherionmc.simplerpc.config.objects.ServerEntry;
 import com.hypherionmc.simplerpc.enums.GameType;
 import com.hypherionmc.simplerpc.enums.RichPresenceState;
-import com.hypherionmc.simplerpc.util.APIUtils;
-import com.hypherionmc.simplerpc.util.variables.PlaceholderEngine;
+import dev.firstdark.rpc.models.DiscordRichPresence;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -25,6 +28,9 @@ public final class RichPresenceEvents {
     private final SimpleRPCCore core;
     private RichPresenceState rpcState = RichPresenceState.INIT;
     private GameType gameType = GameType.SINGLE;
+
+    @Nullable
+    private DiscordRichPresence customPresence = null;
 
     /**
      * Create a new instance of the RPC Event Handler
@@ -59,6 +65,16 @@ public final class RichPresenceEvents {
     }
 
     /**
+     * Set your own RPC state, overriding any displayed RPC
+     *
+     * @param newPresence A fully constructed {@link RichPresenceBuilder} instance
+     */
+    public void setCustomRPC(@Nullable RichPresenceBuilder newPresence) {
+        this.rpcState = RichPresenceState.CUSTOM;
+        this.customPresence = newPresence != null ? newPresence.getPresence() : null;
+    }
+
+    /**
      * RPC Update "tick loop"
      */
     @ApiStatus.Internal
@@ -69,6 +85,11 @@ public final class RichPresenceEvents {
 
         if (clientConfig == null || !clientConfig.general.enabled || discordHandler == null)
             return;
+
+        if (rpcState == RichPresenceState.CUSTOM && customPresence != null) {
+            discordHandler.updateRichPresence(customPresence);
+            return;
+        }
 
         // Replay Mod Compat
         if (rpcState == RichPresenceState.REPLAY_BROWSER || rpcState == RichPresenceState.REPLAY_EDITOR || rpcState == RichPresenceState.REPLAY_RENDER) {

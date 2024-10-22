@@ -14,7 +14,7 @@ import com.hypherionmc.simplerpc.util.variables.RPCVariables;
  *
  * Main Mod Entrypoint for Modloaders
  */
-public class SimpleRPCClient {
+public final class SimpleRPCClient {
 
     public static void setupEvents() {
         CraterEventBus.INSTANCE.registerEventListener(SimpleRPCClient.class);

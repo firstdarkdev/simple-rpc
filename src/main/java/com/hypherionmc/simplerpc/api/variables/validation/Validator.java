@@ -1,4 +1,4 @@
-package com.hypherionmc.simplerpc.util.variables.validation;
+package com.hypherionmc.simplerpc.api.variables.validation;
 
 /**
  * @author HypherionSA
@@ -8,6 +8,6 @@ package com.hypherionmc.simplerpc.util.variables.validation;
 @FunctionalInterface
 public interface Validator {
 
-    boolean vaildate();
+    boolean validate();
 
 }

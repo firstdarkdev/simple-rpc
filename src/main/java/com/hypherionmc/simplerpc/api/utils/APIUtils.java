@@ -1,10 +1,11 @@
-package com.hypherionmc.simplerpc.util;
+package com.hypherionmc.simplerpc.api.utils;
 
 import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 import com.hypherionmc.simplerpc.config.objects.DimensionSection;
-import com.hypherionmc.simplerpc.util.variables.PlaceholderEngine;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,7 @@ public class APIUtils {
      * @param list A copy of the loaded Dimension overrides
      * @return The resolved RPC that will be displayed
      */
+    @ApiStatus.Internal
     public static Optional<DimensionSection.Dimension> findDimension(List<DimensionSection.Dimension> list) {
         String dimensionName = getWorld();
         String biome = getBiome();

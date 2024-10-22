@@ -1,6 +1,5 @@
-package com.hypherionmc.simplerpc.config.base;
+package com.hypherionmc.simplerpc.api.rpc;
 
-import com.hypherionmc.simplerpc.discord.RichPresenceBuilder;
 import dev.firstdark.rpc.models.DiscordRichPresence;
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +16,21 @@ public class RichPresenceOverrideHolder implements RichPresenceContainer, Suppli
     private final RichPresenceBuilder builder;
     private final boolean isActive;
 
+    /**
+     * Convert the config to a RichPresence
+     *
+     * @return A copy of {@link RichPresenceBuilder} ready to be used
+     */
     @Override
     public RichPresenceBuilder buildPresence() {
         return builder;
     }
 
+    /**
+     * Is the current RPC section active, and should it be used
+     *
+     * @return {@link Boolean#TRUE} if enabled
+     */
     @Override
     public boolean isActive() {
         return isActive;

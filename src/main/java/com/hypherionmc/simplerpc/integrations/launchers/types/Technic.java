@@ -2,9 +2,9 @@ package com.hypherionmc.simplerpc.integrations.launchers.types;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.hypherionmc.simplerpc.api.utils.APIUtils;
 import com.hypherionmc.simplerpc.enums.LauncherType;
 import com.hypherionmc.simplerpc.integrations.launchers.Launcher;
-import com.hypherionmc.simplerpc.util.APIUtils;
 
 import java.io.File;
 
@@ -13,7 +13,7 @@ import java.io.File;
  *
  * Technic Launcher Detector
  */
-public class Technic implements Launcher {
+public final class Technic implements Launcher {
 
     private boolean hasLoaded = false;
     private String packName = "Unknown Pack";

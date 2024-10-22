@@ -1,7 +1,7 @@
 package com.hypherionmc.simplerpc.config.objects;
 
-import com.hypherionmc.simplerpc.config.base.RichPresenceContainer;
-import com.hypherionmc.simplerpc.discord.RichPresenceBuilder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;

@@ -1,8 +1,8 @@
-package com.hypherionmc.simplerpc.util.variables;
+package com.hypherionmc.simplerpc.api.variables;
 
 import com.hypherionmc.simplerpc.RPCConstants;
-import com.hypherionmc.simplerpc.util.variables.validation.UnsafeSupplier;
-import com.hypherionmc.simplerpc.util.variables.validation.Validator;
+import com.hypherionmc.simplerpc.api.variables.validation.UnsafeSupplier;
+import com.hypherionmc.simplerpc.api.variables.validation.Validator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -99,7 +99,7 @@ public final class PlaceholderEngine {
          * @return The resolved value, or default value
          */
         String resolve() {
-            if (!validator().vaildate())
+            if (!validator().validate())
                 return defaultValue;
 
             try {

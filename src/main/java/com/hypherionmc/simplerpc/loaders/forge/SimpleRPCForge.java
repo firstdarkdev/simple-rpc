@@ -6,7 +6,7 @@ import com.hypherionmc.simplerpc.SimpleRPCClient;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(RPCConstants.MOD_ID)
-public class SimpleRPCForge {
+public final class SimpleRPCForge {
 
     public SimpleRPCForge() {
         if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient()) {

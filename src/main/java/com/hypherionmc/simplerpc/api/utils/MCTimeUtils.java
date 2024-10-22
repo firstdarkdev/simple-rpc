@@ -1,4 +1,4 @@
-package com.hypherionmc.simplerpc.util;
+package com.hypherionmc.simplerpc.api.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

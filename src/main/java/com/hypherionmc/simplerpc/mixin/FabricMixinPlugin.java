@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * Mixin Plugin to disable ReplayMod mixins if the mod is not installed
  */
-public class FabricMixinPlugin implements IMixinConfigPlugin {
+public final class FabricMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {

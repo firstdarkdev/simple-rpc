@@ -12,7 +12,7 @@ import java.io.File;
  *
  * Modrinth Launcher Detector
  */
-public class Modrinth implements Launcher {
+public final class Modrinth implements Launcher {
 
     private boolean hasLoaded = false;
     private String packName = "Unknown Pack";

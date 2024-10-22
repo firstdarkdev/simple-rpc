@@ -1,4 +1,4 @@
-package com.hypherionmc.simplerpc.util.variables.validation;
+package com.hypherionmc.simplerpc.api.variables.validation;
 
 /**
  * @author HypherionSA

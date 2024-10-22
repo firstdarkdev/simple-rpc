@@ -12,7 +12,7 @@ import java.io.File;
  *
  * ATLauncher Launcher Detector
  */
-public class ATLauncher implements Launcher {
+public final class ATLauncher implements Launcher {
 
     private boolean hasLoaded = false;
     private String packName = "Unknown Pack";

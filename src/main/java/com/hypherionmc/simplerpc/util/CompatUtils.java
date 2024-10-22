@@ -5,7 +5,7 @@ package com.hypherionmc.simplerpc.util;
  *
  * Compat utils to check if certain mods are present. Mostly just used for ReplayMod
  */
-public class CompatUtils {
+public final class CompatUtils {
 
     public static final boolean hasReplay = checkReplayMod();
 

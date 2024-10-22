@@ -1,6 +1,8 @@
 package com.hypherionmc.simplerpc.discord;
 
+import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.simplerpc.RPCConstants;
+import com.hypherionmc.simplerpc.api.events.RPCEvents;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
 import com.hypherionmc.simplerpc.config.impl.ReplayModConfig;
 import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
@@ -95,6 +97,7 @@ public final class SimpleRPCCore {
      */
     public void setLangCode(String code) {
         if (code != null && !code.equalsIgnoreCase(langCode)) {
+            CraterEventBus.INSTANCE.postEvent(RPCEvents.LanguageChanged.of(code));
             try {
                 langCode = code;
                 clientConfig = new ClientConfig(this);
@@ -181,6 +184,12 @@ public final class SimpleRPCCore {
          * @param presence - The finalized presence ready to be sent to discord
          */
         void updateRichPresence(@Nullable DiscordRichPresence presence) {
+            RPCEvents.RichPresenceUpdated updated = RPCEvents.RichPresenceUpdated.of(presence);
+
+            if (updated.wasCancelled()) {
+                presence = updated.getPresence();
+            }
+
             try {
                 if (discordRPC != null) {
                     this.discordRPC.updatePresence(presence);
@@ -196,6 +205,7 @@ public final class SimpleRPCCore {
          * Disconnect from discord and stop sending updates
          */
         void shutdownRichPresence() {
+            CraterEventBus.INSTANCE.postEvent(RPCEvents.RichPresenceShutDown.of());
             if (discordRPC != null) {
                 discordRPC.updatePresence(null);
                 discordRPC.shutdown();
