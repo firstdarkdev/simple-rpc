@@ -24,11 +24,11 @@ public final class RealmsScreenSection implements RichPresenceContainer {
 
     @Path("description")
     @SpecComment("The first line of text under the app name")
-    public String description = "{{player.name}} is looking for a Realm";
+    public RandomArrayList<String>  description = RandomArrayList.of("{{player.name}} is looking for a Realm");
 
     @Path("state")
     @SpecComment("The second line of text under the app name")
-    public String state = "Browsing Realms";
+    public RandomArrayList<String>  state = RandomArrayList.of("Browsing Realms");
 
     @Path("largeImageKey")
     @SpecComment("The Asset ID of the image to display as the large image")
@@ -37,7 +37,7 @@ public final class RealmsScreenSection implements RichPresenceContainer {
 
     @Path("largeImageText")
     @SpecComment("The text that gets displayed when the large image is hovered")
-    public String largeImageText = "";
+    public RandomArrayList<String>  largeImageText = RandomArrayList.of();
 
     @Path("smallImageKey")
     @SpecComment("The Asset ID of the image to display as the small image")
@@ -46,7 +46,7 @@ public final class RealmsScreenSection implements RichPresenceContainer {
 
     @Path("smallImageText")
     @SpecComment("The text that gets displayed when the small image is hovered")
-    public String smallImageText = "";
+    public RandomArrayList<String>  smallImageText = RandomArrayList.of();
 
     @Path("buttons")
     @SpecComment("The buttons to display on Discord")
@@ -56,12 +56,12 @@ public final class RealmsScreenSection implements RichPresenceContainer {
     @Override
     public RichPresenceBuilder buildPresence() {
         return new RichPresenceBuilder()
-                .setDetails(this.description)
+                .setDetails(this.description.getNextRandom().orElse(""))
                 .setLargeImage(this.largeImageKey.getNextRandom().orElse(""))
-                .setLargeImageText(this.largeImageText)
+                .setLargeImageText(this.largeImageText.getNextRandom().orElse(""))
                 .setSmallImage(this.smallImageKey.getNextRandom().orElse(""))
-                .setSmallImageText(this.smallImageText)
-                .setState(this.state)
+                .setSmallImageText(this.smallImageText.getNextRandom().orElse(""))
+                .setState(this.state.getNextRandom().orElse(""))
                 .setButtons(this.buttonsList);
     }
 

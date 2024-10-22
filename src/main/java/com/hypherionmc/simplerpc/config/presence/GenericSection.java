@@ -20,11 +20,11 @@ public final class GenericSection implements RichPresenceContainer {
 
     @Path("description")
     @SpecComment("The first line of text under the app name")
-    public String description = "Playing Minecraft";
+    public RandomArrayList<String> description = RandomArrayList.of("Playing Minecraft");
 
     @Path("state")
     @SpecComment("The second line of text under the app name")
-    public String state = "";
+    public RandomArrayList<String> state = RandomArrayList.of();
 
     @Path("largeImageKey")
     @SpecComment("The Asset ID of the image to display as the large image")
@@ -33,7 +33,7 @@ public final class GenericSection implements RichPresenceContainer {
 
     @Path("largeImageText")
     @SpecComment("The text that gets displayed when the large image is hovered")
-    public String largeImageText = "It's Minecraft {{game.version}}, but modded";
+    public RandomArrayList<String> largeImageText = RandomArrayList.of("It's Minecraft {{game.version}}, but modded");
 
     @Path("smallImageKey")
     @SpecComment("The Asset ID of the image to display as the small image")
@@ -42,7 +42,7 @@ public final class GenericSection implements RichPresenceContainer {
 
     @Path("smallImageText")
     @SpecComment("The text that gets displayed when the small image is hovered")
-    public String smallImageText = "{{game.mods}} mods installed";
+    public RandomArrayList<String> smallImageText = RandomArrayList.of("{{game.mods}} mods installed");
 
     @Path("buttons")
     @SpecComment("The buttons to display on Discord")
@@ -52,12 +52,12 @@ public final class GenericSection implements RichPresenceContainer {
     @Override
     public RichPresenceBuilder buildPresence() {
         return new RichPresenceBuilder()
-                .setDetails(this.description)
+                .setDetails(this.description.getNextRandom().orElse(""))
                 .setLargeImage(this.largeImageKey.getNextRandom().orElse(""))
-                .setLargeImageText(this.largeImageText)
+                .setLargeImageText(this.largeImageText.getNextRandom().orElse(""))
                 .setSmallImage(this.smallImageKey.getNextRandom().orElse(""))
-                .setSmallImageText(this.smallImageText)
-                .setState(this.state)
+                .setSmallImageText(this.smallImageText.getNextRandom().orElse(""))
+                .setState(this.state.getNextRandom().orElse(""))
                 .setButtons(this.buttonsList);
     }
 

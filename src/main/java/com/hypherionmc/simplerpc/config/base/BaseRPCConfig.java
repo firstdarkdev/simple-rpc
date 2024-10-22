@@ -88,7 +88,7 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
         int ver = config.contains("general.version") ? config.getInt("general.version") : config.getIntOrElse("version", 0);
 
         if (ver != getConfigVersion()) {
-            if (ver < 22 && this instanceof ClientConfig) {
+            if (ver < 23 && this instanceof ClientConfig) {
                 config.close();
                 conf.getConfigPath().renameTo(new File(conf.getConfigPath().getAbsolutePath().replace(".toml", ".legacy")));
                 RPCConstants.logger.error("Your Simple RPC config file is too old and cannot be upgraded. A new one has been created and your old one backed up to simple-rpc.legacy");
