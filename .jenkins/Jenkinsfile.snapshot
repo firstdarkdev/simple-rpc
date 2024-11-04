@@ -1,5 +1,6 @@
 def projectName = "Simple Discord RPC";
 def projectIcon = "https://cdn.modrinth.com/data/ObXSoyrn/bdcee1893ca0f5fc03c7faec6135f39faaed8705.png";
+def releaseType = "alpha";
 
 pipeline {
     agent {
@@ -28,7 +29,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "chmod +x ./gradlew"
-                sh "./gradlew clean build publish -PreleaseType=alpha"
+                sh "./gradlew clean build publish -PreleaseType=${releaseType}"
             }
         }
     }
@@ -44,7 +45,7 @@ pipeline {
                 projectIcon: "${projectIcon}",
                 modLoaders: "forge|neoforge|fabric|quilt",
                 minecraftVersions: "1.18.2|1.19.2|1.19.3|1.19.4|1.20|1.20.1|1.20.2|1.20.3|1.20.4|1.21|1.21.1|1.21.3",
-                type: "snapshot",
+                type: "${releaseType}",
                 dependsOn: "required:craterlib",
                 failWebhook: env.SSS_WEBHOOK,
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
