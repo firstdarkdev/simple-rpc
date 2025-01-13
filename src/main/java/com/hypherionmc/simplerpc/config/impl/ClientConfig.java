@@ -1,24 +1,28 @@
 package com.hypherionmc.simplerpc.config.impl;
 
+import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
 import com.hypherionmc.simplerpc.config.objects.CustomVariablesConfig;
 import com.hypherionmc.simplerpc.config.objects.DimensionSection;
 import com.hypherionmc.simplerpc.config.objects.GeneralConfig;
+import com.hypherionmc.simplerpc.config.objects.RichPresenceModel;
 import com.hypherionmc.simplerpc.config.presence.*;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.util.variables.RPCVariables;
+import dev.firstdark.rpc.enums.ActivityType;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
 import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * @author HypherionSA
  *
  * Main Client Side Config
  */
+@NoConfigScreen
 public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
 
     // Keep this transient, or the config library will write this to the config file!!!
@@ -103,9 +107,59 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
 
     @Override
     public void appendAdditional() {
-        this.dimension_overrides.dimensions.add(new DimensionSection.Dimension("overworld", "{{player.name}} is in The Overworld", "", RandomArrayList.of("overworld"), "In the Overworld", RandomArrayList.of("mclogo"), "{{game.mods}} mods installed", new LinkedList<>()));
-        this.dimension_overrides.dimensions.add(new DimensionSection.Dimension("the_nether", "{{player.name}} is in The Nether", "", RandomArrayList.of("nether"), "In the Nether", RandomArrayList.of("mclogo"), "{{game.mods}} mods installed", new LinkedList<>()));
-        this.dimension_overrides.dimensions.add(new DimensionSection.Dimension("the_end", "{{player.name}} is in The End", "", RandomArrayList.of("end"), "In the End", RandomArrayList.of("mclogo"), "{{game.mods}} mods installed", new LinkedList<>()));
+        this.dimension_overrides.dimensions.add(
+                new DimensionSection.Dimension("overworld",
+                        RandomArrayList.of(
+                                RichPresenceModel.of(
+                                        ActivityType.PLAYING,
+                                        "{{player.name}} is in The Overworld",
+                                        "",
+                                        RandomArrayList.of("overworld"),
+                                        "In the Overworld",
+                                        RandomArrayList.of("mclogo"),
+                                        "{{game.mods}} mods installed",
+                                        "https://twitch.tv/twitch",
+                                        new ArrayList<>()
+                                )
+                        )
+                )
+        );
+
+        this.dimension_overrides.dimensions.add(
+                new DimensionSection.Dimension("the_nether",
+                        RandomArrayList.of(
+                                RichPresenceModel.of(
+                                        ActivityType.PLAYING,
+                                        "{{player.name}} is in The Nether",
+                                        "",
+                                        RandomArrayList.of("nether"),
+                                        "In the Nether",
+                                        RandomArrayList.of("mclogo"),
+                                        "{{game.mods}} mods installed",
+                                        "https://twitch.tv/twitch",
+                                        new ArrayList<>()
+                                )
+                        )
+                )
+        );
+
+        this.dimension_overrides.dimensions.add(
+                new DimensionSection.Dimension("the_end",
+                        RandomArrayList.of(
+                                RichPresenceModel.of(
+                                        ActivityType.PLAYING,
+                                        "{{player.name}} is in The End",
+                                        "",
+                                        RandomArrayList.of("end"),
+                                        "In the End",
+                                        RandomArrayList.of("mclogo"),
+                                        "{{game.mods}} mods installed",
+                                        "https://twitch.tv/twitch",
+                                        new ArrayList<>()
+                                )
+                        )
+                )
+        );
     }
 
     @Override

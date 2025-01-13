@@ -50,18 +50,18 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("images.server", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "none", () -> String.format("https://api.mcsrvstat.us/icon/%s", minecraft.getCurrentServer().ip()));
 
         // World - These only resolve when the player is in a game
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.name", NotNullValidator.of(minecraft.getLevel()), "Unknown World", RPCVariables::resolveWorldName);
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", NotNullValidator.of(minecraft.getLevel()), "Unknown World", () -> ChatUtils.resolve(minecraft.getLevel().getDifficulty(), false));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.savename", NotNullValidator.of(minecraft.getLevel()), "World", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.name", NotNullValidator.of(minecraft::getLevel), "Unknown World", RPCVariables::resolveWorldName);
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", NotNullValidator.of(minecraft::getLevel), "Unknown World", () -> ChatUtils.resolve(minecraft.getLevel().getDifficulty(), false));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.savename", NotNullValidator.of(minecraft::getLevel), "World", () -> {
             if (minecraft.getSinglePlayerServer() != null)
                 return minecraft.getSinglePlayerServer().getLevelName();
 
             return "Server World";
         });
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.12", NotNullValidator.of(minecraft.getLevel()), "12:00 AM", () -> MCTimeUtils.format12(minecraft.getLevel().getDayTime()));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.24", NotNullValidator.of(minecraft.getLevel()), "12:00", () -> MCTimeUtils.format24(minecraft.getLevel().getDayTime()));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.day", NotNullValidator.of(minecraft.getLevel()), "1", () -> String.valueOf(minecraft.getLevel().dayTime() / 24000L));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.weather", NotNullValidator.of(minecraft.getLevel()), "Clear", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.12", NotNullValidator.of(minecraft::getLevel), "12:00 AM", () -> MCTimeUtils.format12(minecraft.getLevel().getDayTime()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.24", NotNullValidator.of(minecraft::getLevel), "12:00", () -> MCTimeUtils.format24(minecraft.getLevel().getDayTime()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.time.day", NotNullValidator.of(minecraft::getLevel), "1", () -> String.valueOf(minecraft.getLevel().dayTime() / 24000L));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.weather", NotNullValidator.of(minecraft::getLevel), "Clear", () -> {
             if (minecraft.getLevel().isRaining())
                 return "Raining/Snowing";
 
@@ -73,7 +73,7 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("world.biome", () -> minecraft.getPlayer() != null && minecraft.getLevel() != null, "Plains", RPCVariables::resolveBiomeName);
 
         // Player - This will only resolve if the player is in game
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft.getLevel()), "x: 0, y: 0, z: 0", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft::getLevel), "x: 0, y: 0, z: 0", () -> {
             BridgedBlockPos pos = minecraft.getPlayer().getOnPos();
             return String.format("x: %s, y: %s, z: %s", pos.getX(), pos.getY(), pos.getZ());
         });
@@ -127,7 +127,7 @@ public final class RPCVariables {
             String worldResKey = minecraft.getLevel().getDimensionKey().getPath();
             return KnownDimensionHelper.tryKnownDimensions(worldResKey).equalsIgnoreCase(worldResKey) ? APIUtils.worldNameToReadable(worldResKey) : KnownDimensionHelper.tryKnownDimensions(worldResKey);
         }
-        return "Unknown World";
+        return "Unknown Worldz";
     }
 
     /**

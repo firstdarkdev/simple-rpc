@@ -5,6 +5,7 @@ import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.simplerpc.RPCConstants;
 import com.hypherionmc.simplerpc.api.rpc.ButtonWrapper;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
+import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
 import shadow.hypherionmc.moonconfig.core.CommentedConfig;
 import shadow.hypherionmc.moonconfig.core.conversion.ObjectConverter;
 import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
@@ -88,11 +89,21 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
         int ver = config.contains("general.version") ? config.getInt("general.version") : config.getIntOrElse("version", 0);
 
         if (ver != getConfigVersion()) {
-            if (ver < 23 && this instanceof ClientConfig) {
+            if (ver < 24 && this instanceof ClientConfig) {
                 config.close();
                 conf.getConfigPath().renameTo(new File(conf.getConfigPath().getAbsolutePath().replace(".toml", ".legacy")));
                 RPCConstants.logger.error("Your Simple RPC config file is too old and cannot be upgraded. A new one has been created and your old one backed up to simple-rpc.legacy");
-                newConfig.save();
+                appendAdditional();
+                saveConfig(conf);
+                return;
+            }
+
+            if (ver < 3 && this instanceof ServerEntriesConfig) {
+                config.close();
+                conf.getConfigPath().renameTo(new File(conf.getConfigPath().getAbsolutePath().replace(".toml", ".legacy")));
+                RPCConstants.logger.error("Your Simple RPC server entries config file is too old and cannot be upgraded. A new one has been created and your old one backed up to server-entries.legacy");
+                appendAdditional();
+                saveConfig(conf);
                 return;
             }
 

@@ -1,7 +1,6 @@
 package com.hypherionmc.simplerpc.config.objects;
 
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
-import com.hypherionmc.simplerpc.api.rpc.ButtonWrapper;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import lombok.AllArgsConstructor;
@@ -39,45 +38,23 @@ public final class DimensionSection implements Serializable {
         @SpecComment("The name of the Dimension/Biome to override. FORMAT: modid:dimension or modid:biome")
         public String name = "";
 
-        @Path("description")
-        @SpecComment("The first line of text under the app name")
-        public String description = "";
-
-        @Path("state")
-        @SpecComment("The second line of text under the app name")
-        public String state = "";
-
-        @Path("largeImageKey")
-        @SpecComment("The Asset ID of the image to display as the large image")
-        public RandomArrayList<String> largeImageKey = RandomArrayList.of();
-
-        @Path("largeImageText")
-        @SpecComment("The text that gets displayed when the large image is hovered")
-        public String largeImageText = "";
-
-        @Path("smallImageKey")
-        @SpecComment("The Asset ID of the image to display as the small image")
-        public RandomArrayList<String> smallImageKey = RandomArrayList.of();
-
-
-        @Path("smallImageText")
-        @SpecComment("The text that gets displayed when the small image is hovered")
-        public String smallImageText = "";
-
-        @Path("buttons")
-        @SpecComment("The buttons to display on Discord")
-        public List<ButtonWrapper> buttonsList = new ArrayList<>();
+        @Path("presence")
+        @SpecComment("List of RPCs that will be displayed at random")
+        public RandomArrayList<RichPresenceModel> presence = new RandomArrayList<>();
 
         @Override
         public RichPresenceBuilder buildPresence() {
+            RichPresenceModel model = this.presence.getNextRandom().orElse(new RichPresenceModel());
+
             return new RichPresenceBuilder()
-                    .setDetails(this.description)
-                    .setLargeImage(this.largeImageKey.getNextRandom().orElse(""))
-                    .setLargeImageText(this.largeImageText)
-                    .setSmallImage(this.smallImageKey.getNextRandom().orElse(""))
-                    .setSmallImageText(this.smallImageText)
-                    .setState(this.state)
-                    .setButtons(this.buttonsList);
+                    .setType(model.getType())
+                    .setDetails(model.getDescription())
+                    .setLargeImage(model.getLargeImageKey().getNextRandom().orElse(""))
+                    .setLargeImageText(model.getLargeImageText())
+                    .setSmallImage(model.getSmallImageKey().getNextRandom().orElse(""))
+                    .setSmallImageText(model.getLargeImageText())
+                    .setState(model.getState())
+                    .setButtons(model.getButtons());
         }
 
         @Override

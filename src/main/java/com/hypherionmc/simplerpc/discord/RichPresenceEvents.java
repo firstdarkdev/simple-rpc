@@ -1,7 +1,7 @@
 package com.hypherionmc.simplerpc.discord;
 
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
-import com.hypherionmc.simplerpc.api.rpc.RichPresenceOverrideHolder;
+import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import com.hypherionmc.simplerpc.api.utils.APIUtils;
 import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
@@ -105,16 +105,16 @@ public final class RichPresenceEvents {
 
         // Standard RPC values
         switch (rpcState) {
-            case INIT -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.init).get());
-            case MAIN_MENU -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.main_menu).get());
-            case REALM_MENU -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.realmsScreenSection).get());
-            case SERVER_MENU -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.server_list).get());
-            case JOINING_GAME -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.join_game).get());
+            case INIT -> discordHandler.updateRichPresence(clientConfig.init.buildPresence().getPresence());
+            case MAIN_MENU -> discordHandler.updateRichPresence(clientConfig.main_menu.buildPresence().getPresence());
+            case REALM_MENU -> discordHandler.updateRichPresence(clientConfig.realmsScreenSection.buildPresence().getPresence());
+            case SERVER_MENU -> discordHandler.updateRichPresence(clientConfig.server_list.buildPresence().getPresence());
+            case JOINING_GAME -> discordHandler.updateRichPresence(clientConfig.join_game.buildPresence().getPresence());
             case IN_GAME -> {
                 switch (gameType) {
                     case SINGLE -> updateSinglePlayerRpc(clientConfig, discordHandler);
                     case MULTIPLAYER -> updateMultiplayerRpc(clientConfig, discordHandler);
-                    case REALM -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(clientConfig.realmsGameSection).get());
+                    case REALM -> discordHandler.updateRichPresence(clientConfig.realmsGameSection.buildPresence().getPresence());
                 }
             }
         }
@@ -128,7 +128,7 @@ public final class RichPresenceEvents {
      * @param discordHandler A copy of the {@link com.hypherionmc.simplerpc.discord.SimpleRPCCore.DiscordController}
      */
     private void updateSinglePlayerRpc(ClientConfig config, SimpleRPCCore.DiscordController discordHandler) {
-        RichPresenceOverrideHolder main = config.generic.overrideWith(config.single_player);
+        RichPresenceContainer main = config.single_player;
 
         // Override with Dimensions/Biomes
         if (config.dimension_overrides.enabled && !config.dimension_overrides.dimensions.isEmpty()) {
@@ -139,7 +139,7 @@ public final class RichPresenceEvents {
             }
         }
 
-        discordHandler.updateRichPresence(main.get());
+        discordHandler.updateRichPresence(main.buildPresence().getPresence());
     }
 
     /**
@@ -150,7 +150,7 @@ public final class RichPresenceEvents {
      * @param discordHandler A copy of the {@link com.hypherionmc.simplerpc.discord.SimpleRPCCore.DiscordController}
      */
     private void updateMultiplayerRpc(ClientConfig config, SimpleRPCCore.DiscordController discordHandler) {
-        RichPresenceOverrideHolder main = config.generic.overrideWith(config.multi_player);
+        RichPresenceContainer main = config.multi_player;
 
         // Override with Dimensions/Biomes
         if (config.dimension_overrides.enabled && !config.dimension_overrides.dimensions.isEmpty()) {
@@ -172,6 +172,6 @@ public final class RichPresenceEvents {
             }
         }
 
-        discordHandler.updateRichPresence(main.get());
+        discordHandler.updateRichPresence(main.buildPresence().getPresence());
     }
 }

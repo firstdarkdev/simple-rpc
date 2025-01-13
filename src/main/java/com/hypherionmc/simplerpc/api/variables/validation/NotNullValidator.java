@@ -1,7 +1,8 @@
 package com.hypherionmc.simplerpc.api.variables.validation;
 
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 /**
  * @author HypherionSA
@@ -12,11 +13,10 @@ import org.jetbrains.annotations.Nullable;
 @RequiredArgsConstructor(staticName = "of")
 public class NotNullValidator implements Validator {
 
-    @Nullable
-    private final Object testObject;
+    private final Supplier<Object> testObject;
 
     @Override
     public boolean validate() {
-        return testObject != null;
+        return testObject.get() != null;
     }
 }
