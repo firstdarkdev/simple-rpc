@@ -73,7 +73,7 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("world.biome", () -> minecraft.getPlayer() != null && minecraft.getLevel() != null, "Plains", RPCVariables::resolveBiomeName);
 
         // Player - This will only resolve if the player is in game
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft::getLevel), "x: 0, y: 0, z: 0", () -> {
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft::getPlayer), "x: 0, y: 0, z: 0", () -> {
             BridgedBlockPos pos = minecraft.getPlayer().getOnPos();
             return String.format("x: %s, y: %s, z: %s", pos.getX(), pos.getY(), pos.getZ());
         });
@@ -127,7 +127,7 @@ public final class RPCVariables {
             String worldResKey = minecraft.getLevel().getDimensionKey().getPath();
             return KnownDimensionHelper.tryKnownDimensions(worldResKey).equalsIgnoreCase(worldResKey) ? APIUtils.worldNameToReadable(worldResKey) : KnownDimensionHelper.tryKnownDimensions(worldResKey);
         }
-        return "Unknown Worldz";
+        return "Unknown World";
     }
 
     /**
