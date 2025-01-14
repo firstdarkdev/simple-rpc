@@ -15,6 +15,7 @@
 - Developer API for developers to add their own RPC, or control our RPCs
 - Multiple RPCs per event. This means, for each event, like Single Player, you can have multiple rpcs that will be chosen at random
 - You can now add buttons to Server Entries
+- Full-featured in-game config screen
 
 **Changes**:
 

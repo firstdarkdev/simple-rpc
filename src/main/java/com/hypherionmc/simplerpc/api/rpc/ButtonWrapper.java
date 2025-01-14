@@ -17,6 +17,10 @@ public final class ButtonWrapper {
     private final String label;
     private final String url;
 
+    public ButtonWrapper() {
+        this("", "");
+    }
+
     /**
      * Convert the button to an RPC button, and parse any placeholders that might be present
      *

@@ -1,5 +1,6 @@
 package com.hypherionmc.simplerpc.config.impl;
 
+import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  *
  * Main Client Side Config
  */
-@NoConfigScreen
+@ClothScreen
 public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
 
     // Keep this transient, or the config library will write this to the config file!!!

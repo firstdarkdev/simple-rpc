@@ -20,17 +20,16 @@ public final class CustomVariablesConfig {
 
     @Path("variables")
     @SpecComment("Your custom variables to add")
-    @HideFromScreen
     public List<CustomVariable> variables = new ArrayList<>();
 
     public final static class CustomVariable {
         @Path("name")
         @SpecComment("The name of your variable. Will be parsed into {{custom.variablename}}")
-        public String name;
+        public String name = "";
 
         @Path("value")
         @SpecComment("The value that this variable will output")
-        public String value;
+        public String value = "";
     }
 
 }

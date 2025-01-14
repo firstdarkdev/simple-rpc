@@ -27,7 +27,6 @@ public final class DimensionSection implements Serializable {
 
     @Path("dimensions")
     @SpecComment("The Dimensions to override")
-    @HideFromScreen
     public List<Dimension> dimensions = new ArrayList<>();
 
     @NoArgsConstructor

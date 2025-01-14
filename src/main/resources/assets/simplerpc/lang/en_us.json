@@ -1,0 +1,87 @@
+{
+  "cl.config.clientconfig": "Simple RPC Client Config",
+
+  "cl.config.clientconfig.general": "General Config",
+  "cl.config.clientconfig.init": "Game Loading RPC",
+  "cl.config.clientconfig.main_menu": "Main Menu RPC",
+  "cl.config.clientconfig.server_list": "Server Browser RPC",
+  "cl.config.clientconfig.realmsscreensection": "Realms Browser RPC",
+  "cl.config.clientconfig.join_game": "Joining Game RPC",
+  "cl.config.clientconfig.single_player": "Single Player RPC",
+  "cl.config.clientconfig.multi_player": "MultiPlayer RPC",
+  "cl.config.clientconfig.realmsgamesection": "Realms Game RPC",
+  "cl.config.clientconfig.generic": "Generic RPC",
+  "cl.config.clientconfig.variablesconfig": "Custom Placeholders",
+  "cl.config.clientconfig.dimension_overrides": "Biome/Dimension Overrides",
+
+  "cl.config.clientconfig.generalconfig": "General Config",
+  "cl.config.clientconfig.generalconfig.discordid": "Application ID",
+  "cl.config.clientconfig.generalconfig.enabled": "Enable RPC",
+  "cl.config.clientconfig.generalconfig.debugging": "Debug Logging",
+  "cl.config.clientconfig.generalconfig.launcherintegration": "Launcher Integration",
+
+  "cl.config.clientconfig.initsection": "Game Loading RPC",
+  "cl.config.clientconfig.initsection.enabled": "Enabled",
+  "cl.config.clientconfig.initsection.presence": "Status",
+
+  "cl.config.clientconfig.mainmenusection": "Main Menu RPC",
+  "cl.config.clientconfig.mainmenusection.enabled": "Enabled",
+  "cl.config.clientconfig.mainmenusection.presence": "Status",
+
+  "cl.config.clientconfig.serverlistsection": "Server Browser RPC",
+  "cl.config.clientconfig.serverlistsection.enabled": "Enabled",
+  "cl.config.clientconfig.serverlistsection.presence": "Status",
+
+  "cl.config.clientconfig.realmsscreensection.enabled": "Enabled",
+  "cl.config.clientconfig.realmsscreensection.presence": "Status",
+
+  "cl.config.clientconfig.joingamesection": "Joining Game RPC",
+  "cl.config.clientconfig.joingamesection.enabled": "Enabled",
+  "cl.config.clientconfig.joingamesection.presence": "Status",
+
+  "cl.config.clientconfig.singleplayersection": "Single Player RPC",
+  "cl.config.clientconfig.singleplayersection.enabled": "Enabled",
+  "cl.config.clientconfig.singleplayersection.presence": "Status",
+
+  "cl.config.clientconfig.multiplayersection": "Multi Player RPC",
+  "cl.config.clientconfig.multiplayersection.enabled": "Enabled",
+  "cl.config.clientconfig.multiplayersection.presence": "Status",
+
+  "cl.config.clientconfig.realmsgamesection.enabled": "Enabled",
+  "cl.config.clientconfig.realmsgamesection.presence": "Status",
+
+  "cl.config.clientconfig.genericsection": "Generic RPC",
+  "cl.config.clientconfig.genericsection.enabled": "Enabled",
+  "cl.config.clientconfig.genericsection.presence": "Status",
+
+  "cl.config.clientconfig.customvariablesconfig": "Custom Variables",
+  "cl.config.clientconfig.customvariablesconfig.enabled": "Enabled",
+  "cl.config.clientconfig.customvariablesconfig.variables": "Custom Variables",
+
+  "cl.config.clientconfig.dimensionsection": "Biome/Dimension Overrides",
+  "cl.config.clientconfig.dimensionsection.enabled": "Enabled",
+  "cl.config.clientconfig.dimensionsection.dimensions": "Overrides",
+
+  "cl.config.clientconfig.richpresencemodel": "Rich Presence Editor",
+  "cl.config.clientconfig.richpresencemodel.type": "Status Type",
+  "cl.config.clientconfig.richpresencemodel.description": "Description",
+  "cl.config.clientconfig.richpresencemodel.state": "State",
+  "cl.config.clientconfig.richpresencemodel.largeimagekey": "Large Image Keys",
+  "cl.config.clientconfig.richpresencemodel.largeimagetext": "Large Image Text",
+  "cl.config.clientconfig.richpresencemodel.smallimagekey": "Small Image Keys",
+  "cl.config.clientconfig.richpresencemodel.smallimagetext": "Small Image Text",
+  "cl.config.clientconfig.richpresencemodel.streamingactivityurl": "Streaming Activity URL",
+  "cl.config.clientconfig.richpresencemodel.buttons": "Buttons",
+
+  "cl.config.clientconfig.buttonwrapper": "Button Editor",
+  "cl.config.clientconfig.buttonwrapper.label": "Button Label",
+  "cl.config.clientconfig.buttonwrapper.url": "Button URL",
+
+  "cl.config.clientconfig.customvariable": "Variable Editor",
+  "cl.config.clientconfig.customvariable.name": "Variable Name",
+  "cl.config.clientconfig.customvariable.value": "Variable Value",
+
+  "cl.config.clientconfig.dimension": "Dimension/Biome Override",
+  "cl.config.clientconfig.dimension.name": "Name",
+  "cl.config.clientconfig.dimension.presence": "Status"
+}
