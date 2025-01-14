@@ -30,6 +30,6 @@ public final class GeneralConfig {
     @Path("version")
     @SpecComment("Internal Version Number. NO TOUCHY!")
     @HideFromScreen
-    public static int version = 24;
+    public static int version = 25;
 
 }

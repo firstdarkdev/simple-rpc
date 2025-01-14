@@ -82,9 +82,10 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
      */
     private void migrateConfigInternal(S conf) {
         /* Set up the Serializer and Config Objects */
-        CommentedFileConfig config = CommentedFileConfig.builder(conf.getConfigPath()).build();
-        CommentedFileConfig newConfig = CommentedFileConfig.builder(conf.getConfigPath()).build();
+        CommentedFileConfig config = CommentedFileConfig.builder(conf.getConfigPath()).sync().build();
+        CommentedFileConfig newConfig = CommentedFileConfig.builder(conf.getConfigPath()).sync().build();
         config.load();
+        System.out.println("CHECK UPGRADE");
 
         int ver = config.contains("general.version") ? config.getInt("general.version") : config.getIntOrElse("version", 0);
 
@@ -107,6 +108,7 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
                 return;
             }
 
+            System.out.println("NEED UPGRADE");
             /* Upgrade the config */
             new ObjectConverter().toConfig(conf, newConfig);
             updateConfigValuesInternal(config, newConfig, newConfig, "", ver);
@@ -114,6 +116,7 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
             newConfig.save();
         }
 
+        System.out.println("SAVE UPGRADE");
         config.close();
         newConfig.close();
     }
@@ -147,21 +150,27 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
         List<CommentedConfig> commentedConfig = newConfig.get("dimension_overrides.dimensions");
 
         if (commentedConfig != null && !commentedConfig.isEmpty()) {
-            commentedConfig.forEach(dim -> {
-                if (!dim.contains("buttons")) {
-                    dim.add("buttons", new ArrayList<ButtonWrapper>());
-                }
-                Object largeImg = dim.get("largeImageKey");
-                if (!List.class.isAssignableFrom(largeImg.getClass())) {
-                    dim.update("largeImageKey", RandomArrayList.of(largeImg));
-                } else {
-                    dim.update("largeImageKey", largeImg);
-                }
-                Object smallImg = dim.get("smallImageKey");
-                if (!List.class.isAssignableFrom(smallImg.getClass())) {
-                    dim.update("smallImageKey", RandomArrayList.of(smallImg));
-                } else {
-                    dim.update("smallImageKey", smallImg);
+            commentedConfig.forEach(ddm -> {
+                List<CommentedConfig> presence = ddm.get("presence");
+
+                if (presence != null && !presence.isEmpty()) {
+                    presence.forEach(dim -> {
+                        if (!dim.contains("buttons")) {
+                            dim.add("buttons", new ArrayList<ButtonWrapper>());
+                        }
+                        Object largeImg = dim.get("largeImageKey");
+                        if (!List.class.isAssignableFrom(largeImg.getClass())) {
+                            dim.update("largeImageKey", RandomArrayList.of(largeImg));
+                        } else {
+                            dim.update("largeImageKey", largeImg);
+                        }
+                        Object smallImg = dim.get("smallImageKey");
+                        if (!List.class.isAssignableFrom(smallImg.getClass())) {
+                            dim.update("smallImageKey", RandomArrayList.of(smallImg));
+                        } else {
+                            dim.update("smallImageKey", smallImg);
+                        }
+                    });
                 }
             });
             outputConfig.set("dimension_overrides.dimensions", commentedConfig);

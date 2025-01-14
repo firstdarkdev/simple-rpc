@@ -74,6 +74,11 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
     @SubConfig
     public RealmsGameSection realmsGameSection = new RealmsGameSection();
 
+    @Path("paused")
+    @SpecComment("The Paused Event")
+    @SubConfig
+    public PauseSection pauseSection = new PauseSection();
+
     @Path("generic")
     @SpecComment("Fallback event for disabled events")
     @SubConfig

@@ -43,8 +43,12 @@ public final class SimpleRPCClient {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.REALM_MENU);
         }
 
-        if (event.getScreen().isServerBrowserScreen()) {
+        if (event.getScreen().isServerBrowserScreen() || event.getScreen().isDisconnetedScreen()) {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.SERVER_MENU);
+        }
+
+        if (event.getScreen().isPauseScreen()) {
+            SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.PAUSED);
         }
 
         if (event.getScreen().isLoadingScreen()) {

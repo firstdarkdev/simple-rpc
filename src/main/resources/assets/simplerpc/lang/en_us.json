@@ -50,6 +50,10 @@
   "cl.config.clientconfig.realmsgamesection.enabled": "Enabled",
   "cl.config.clientconfig.realmsgamesection.presence": "Status",
 
+  "cl.config.clientconfig.pausesection": "Pause RPC",
+  "cl.config.clientconfig.pausesection.enabled": "Enabled",
+  "cl.config.clientconfig.pausesection.presence": "Status",
+
   "cl.config.clientconfig.genericsection": "Generic RPC",
   "cl.config.clientconfig.genericsection.enabled": "Enabled",
   "cl.config.clientconfig.genericsection.presence": "Status",

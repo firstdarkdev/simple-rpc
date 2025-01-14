@@ -110,6 +110,7 @@ public final class RichPresenceEvents {
             case REALM_MENU -> discordHandler.updateRichPresence(clientConfig.realmsScreenSection.buildPresence().getPresence());
             case SERVER_MENU -> discordHandler.updateRichPresence(clientConfig.server_list.buildPresence().getPresence());
             case JOINING_GAME -> discordHandler.updateRichPresence(clientConfig.join_game.buildPresence().getPresence());
+            case PAUSED -> discordHandler.updateRichPresence(clientConfig.pauseSection.buildPresence().getPresence());
             case IN_GAME -> {
                 switch (gameType) {
                     case SINGLE -> updateSinglePlayerRpc(clientConfig, discordHandler);

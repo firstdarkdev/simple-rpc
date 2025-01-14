@@ -8,6 +8,7 @@
 
 - Greatly improved the performance of the placeholder system. No more stuttering and fps drops while resolving placeholders
 - Placeholders can now fail individually. For example: player count fails, all the other server placeholders doesn't break
+- RPC still showing you as in-game, when you get kicked from a server
 
 **New Features**:
 
@@ -16,6 +17,7 @@
 - Multiple RPCs per event. This means, for each event, like Single Player, you can have multiple rpcs that will be chosen at random
 - You can now add buttons to Server Entries
 - Full-featured in-game config screen
+- Paused State RPC
 
 **Changes**:
 

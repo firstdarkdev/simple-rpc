@@ -16,5 +16,6 @@ public enum RichPresenceState {
     REPLAY_BROWSER,
     REPLAY_EDITOR,
     REPLAY_RENDER,
+    PAUSED,
     CUSTOM
 }
