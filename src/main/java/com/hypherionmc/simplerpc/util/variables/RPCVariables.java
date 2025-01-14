@@ -78,6 +78,12 @@ public final class RPCVariables {
             return String.format("x: %s, y: %s, z: %s", pos.getX(), pos.getY(), pos.getZ());
         });
 
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.current", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf(minecraft.getPlayer().getHealth()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.max", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf(minecraft.getPlayer().getMaxHealth()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.percent", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf((minecraft.getPlayer().getMaxHealth() / minecraft.getPlayer().getHealth()) * 100));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.off_hand", NotNullValidator.of(minecraft::getPlayer), "0", () -> minecraft.getPlayer().getHeldItemOffHand());
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.main_hand", NotNullValidator.of(minecraft::getPlayer), "0", () -> minecraft.getPlayer().getHeldItemMainHand());
+
         // Server - This will only resolve when playing on a server
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0.0.0.0", () -> minecraft.getCurrentServer().ip());
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip_underscore", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0_0_0_0", () -> minecraft.getCurrentServer().ip().replace(".", "_"));
