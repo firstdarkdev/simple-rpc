@@ -18,6 +18,7 @@
 - You can now add buttons to Server Entries
 - Full-featured in-game config screen
 - Paused State RPC
+- Added in-game notice if you have CraftPresence and Simple RPC installed at the same time
 
 **Changes**:
 
