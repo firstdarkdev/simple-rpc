@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
 loaderVersion="[1,)"
-license="All rights reserved"
-issueTrackerURL="https://github.com/hypherionmc/simple-rpc-public/issues"
+license="MIT"
+issueTrackerURL="https://github.com/firstdarkdev/simple-rpc/issues"
 
 [[mods]]
     modId="${mod_id}"
@@ -42,6 +42,6 @@ issueTrackerURL="https://github.com/hypherionmc/simple-rpc-public/issues"
     modId="craterlib"
     mandatory=true
     type="required"
-    versionRange="[2.0,)"
+    versionRange="[2.1,)"
     ordering="AFTER"
     side="CLIENT"

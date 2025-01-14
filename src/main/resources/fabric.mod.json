@@ -10,11 +10,11 @@
     ],
     "contact": {
       "homepage": "https://www.curseforge.com/minecraft/mc-mods/simple-discord-rpc",
-      "issues": "https://github.com/hypherionmc/simple-rpc-public/issues",
-      "discord": "https://discord.gg/PdVnXf9"
+      "issues": "https://github.com/firstdarkdev/simple-rpc/issues",
+      "discord": "https://discord.firstdark.dev"
     },
 
-    "license": "All Rights Reserved",
+    "license": "MIT",
     "icon": "assets/simplerpc/icon.png",
 
     "environment": "*",
