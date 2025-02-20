@@ -1,8 +1,12 @@
 ## Requires CraterLib
 
+- Temporary Documentation: [Simple RPC Beta](https://srpcbeta.fdd-docs.com/)
+- Source Code: [GitHub](https://github.com/firstdarkdev/simple-rpc)
+- Report Issues: [GitHub](https://github.com/firstdarkdev/simple-rpc/issues)
+
 *This jar works on ALL minecraft versions from 1.18.2 up until 1.21.4. Forge is only supported until 1.20.4*
 
-### WARNING: Configs from older versions of Simple RPC are NOT compatible with these versions. You will need to redo your config. Our online editor still supports it.
+### WARNING: Configs from older versions of Simple RPC are NOT compatible with these versions. You will need to redo your config.
 
 **Bug Fixes**:
 
@@ -23,3 +27,4 @@
 **Changes**:
 
 - Switched from using the old C++ based discord rpc, to a new, fully JAVA one. Should fix a lot of mac compat issues (I hope and pray it does)
+- The server side config override feature has been removed until further notice.
