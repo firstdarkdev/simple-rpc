@@ -80,9 +80,9 @@ public final class RPCVariables {
 
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.current", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf(minecraft.getPlayer().getHealth()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.max", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf(minecraft.getPlayer().getMaxHealth()));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.percent", NotNullValidator.of(minecraft::getPlayer), "0", () -> String.valueOf((minecraft.getPlayer().getMaxHealth() / minecraft.getPlayer().getHealth()) * 100));
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.off_hand", NotNullValidator.of(minecraft::getPlayer), "0", () -> minecraft.getPlayer().getHeldItemOffHand());
-        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.main_hand", NotNullValidator.of(minecraft::getPlayer), "0", () -> minecraft.getPlayer().getHeldItemMainHand());
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.percent", NotNullValidator.of(minecraft::getPlayer), "0%", () -> String.valueOf(Math.round((minecraft.getPlayer().getHealth() / minecraft.getPlayer().getMaxHealth()) * 100)));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.off_hand", NotNullValidator.of(minecraft::getPlayer), "Air", () -> minecraft.getPlayer().getHeldItemOffHand());
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.main_hand", NotNullValidator.of(minecraft::getPlayer), "Air", () -> minecraft.getPlayer().getHeldItemMainHand());
 
         // Server - This will only resolve when playing on a server
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0.0.0.0", () -> minecraft.getCurrentServer().ip());
@@ -96,7 +96,7 @@ public final class RPCVariables {
         // Realms - This will only resolve on a realm server
         PlaceholderEngine.INSTANCE.registerPlaceholder("realm.name", () -> realmsServer != null && minecraft.isRealmServer(), "A Realm", () -> realmsServer.getName());
         PlaceholderEngine.INSTANCE.registerPlaceholder("realm.description", () -> realmsServer != null && minecraft.isRealmServer(), "A Minecraft Realm", () -> realmsServer.getDescription());
-        PlaceholderEngine.INSTANCE.registerPlaceholder("realm.world", () -> realmsServer != null && minecraft.isRealmServer(), "World", () -> realmsServer.getWorldType().toLowerCase());
+        PlaceholderEngine.INSTANCE.registerPlaceholder("realm.world", () -> realmsServer != null && minecraft.isRealmServer(), "world", () -> realmsServer.getWorldType().toLowerCase());
         PlaceholderEngine.INSTANCE.registerPlaceholder("realm.game", () -> realmsServer != null && minecraft.isRealmServer(), "A Realm Game", () -> realmsServer.getMinigameName());
         PlaceholderEngine.INSTANCE.registerPlaceholder("realm.players.count", () -> realmsServer != null && minecraft.isRealmServer(), "0", () -> String.valueOf(realmsServer.getPlayerCount()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("realm.players.max", () -> realmsServer != null && minecraft.isRealmServer(), "10", () -> "10");
@@ -104,9 +104,7 @@ public final class RPCVariables {
         // Custom Placeholders
         CustomVariablesConfig customVariablesConfig = SimpleRPCCore.INSTANCE.getClientConfig().variablesConfig;
         if (customVariablesConfig.enabled) {
-            customVariablesConfig.variables.forEach(v -> {
-                PlaceholderEngine.INSTANCE.registerPlaceholder("custom." + v.name, v.value, () -> v.value);
-            });
+            customVariablesConfig.variables.forEach(v -> PlaceholderEngine.INSTANCE.registerPlaceholder("custom." + v.name, v.value, () -> v.value));
         }
 
         // Replay Mod Variables - Only available if replay mod is installed
