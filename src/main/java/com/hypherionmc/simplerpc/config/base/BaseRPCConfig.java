@@ -5,6 +5,7 @@ import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.simplerpc.RPCConstants;
 import com.hypherionmc.simplerpc.api.rpc.ButtonWrapper;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
+import com.hypherionmc.simplerpc.config.impl.ReplayModConfig;
 import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
 import shadow.hypherionmc.moonconfig.core.CommentedConfig;
 import shadow.hypherionmc.moonconfig.core.conversion.ObjectConverter;
@@ -85,7 +86,6 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
         CommentedFileConfig config = CommentedFileConfig.builder(conf.getConfigPath()).sync().build();
         CommentedFileConfig newConfig = CommentedFileConfig.builder(conf.getConfigPath()).sync().build();
         config.load();
-        System.out.println("CHECK UPGRADE");
 
         int ver = config.contains("general.version") ? config.getInt("general.version") : config.getIntOrElse("version", 0);
 
@@ -108,7 +108,15 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
                 return;
             }
 
-            System.out.println("NEED UPGRADE");
+            if (ver < 2 && this instanceof ReplayModConfig) {
+                config.close();
+                conf.getConfigPath().renameTo(new File(conf.getConfigPath().getAbsolutePath().replace(".toml", ".legacy")));
+                RPCConstants.logger.error("Your Simple RPC ReplayMod config file is too old and cannot be upgraded. A new one has been created and your old one backed up to simple-rpc-replaymod.legacy");
+                appendAdditional();
+                saveConfig(conf);
+                return;
+            }
+
             /* Upgrade the config */
             new ObjectConverter().toConfig(conf, newConfig);
             updateConfigValuesInternal(config, newConfig, newConfig, "", ver);
@@ -116,7 +124,6 @@ public abstract class BaseRPCConfig<S extends BaseRPCConfig> extends AbstractCon
             newConfig.save();
         }
 
-        System.out.println("SAVE UPGRADE");
         config.close();
         newConfig.close();
     }
