@@ -3,6 +3,7 @@ package com.hypherionmc.simplerpc.config.presence;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import com.hypherionmc.simplerpc.config.objects.RichPresenceModel;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import dev.firstdark.rpc.enums.ActivityType;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
@@ -39,6 +40,10 @@ public final class ReplayModMenuSection implements RichPresenceContainer {
 
     @Override
     public RichPresenceBuilder buildPresence() {
+        if (!this.enabled) {
+            return SimpleRPCCore.INSTANCE.getClientConfig().generic.buildPresence();
+        }
+
         RichPresenceModel model = this.presence.getNextRandom().orElse(new RichPresenceModel());
 
         return new RichPresenceBuilder()

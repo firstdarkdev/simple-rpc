@@ -14,3 +14,4 @@
 - Fix `off_hand` and `main_hand` placeholders defaulting to 0, instead of "Air"
 - Fix `health.percent` placeholder being reversed
 - Fix `realm.world` placeholder falling back to Uppercase "World", instead of lowercase
+- Fix RPC events not respecting their `enabled` flag

@@ -3,6 +3,8 @@ package com.hypherionmc.simplerpc.config.presence;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import com.hypherionmc.simplerpc.config.objects.RichPresenceModel;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
+import com.hypherionmc.simplerpc.enums.GameType;
 import dev.firstdark.rpc.enums.ActivityType;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
@@ -34,6 +36,12 @@ public class PauseSection implements RichPresenceContainer {
 
     @Override
     public RichPresenceBuilder buildPresence() {
+        if (!this.enabled) {
+            return SimpleRPCCore.INSTANCE.getEvents().getGameType() == GameType.SINGLE ?
+                    SimpleRPCCore.INSTANCE.getClientConfig().single_player.buildPresence()
+                    : SimpleRPCCore.INSTANCE.getClientConfig().multi_player.buildPresence();
+        }
+
         RichPresenceModel model = this.presence.getNextRandom().orElse(new RichPresenceModel());
 
         return new RichPresenceBuilder()

@@ -12,6 +12,7 @@ import com.hypherionmc.simplerpc.config.objects.ServerEntry;
 import com.hypherionmc.simplerpc.enums.GameType;
 import com.hypherionmc.simplerpc.enums.RichPresenceState;
 import dev.firstdark.rpc.models.DiscordRichPresence;
+import lombok.Getter;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +28,8 @@ public final class RichPresenceEvents {
     // Internal Values
     private final SimpleRPCCore core;
     private RichPresenceState rpcState = RichPresenceState.INIT;
+
+    @Getter
     private GameType gameType = GameType.SINGLE;
 
     @Nullable
@@ -95,9 +98,9 @@ public final class RichPresenceEvents {
         if (rpcState == RichPresenceState.REPLAY_BROWSER || rpcState == RichPresenceState.REPLAY_EDITOR || rpcState == RichPresenceState.REPLAY_RENDER) {
             if (replayModConfig != null && replayModConfig.enabled) {
                 switch (rpcState) {
-                    case REPLAY_BROWSER -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(replayModConfig.replayModMenuSection).get());
-                    case REPLAY_EDITOR -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(replayModConfig.replayModEditorSection).get());
-                    case REPLAY_RENDER -> discordHandler.updateRichPresence(clientConfig.generic.overrideWith(replayModConfig.replayModRenderSection).get());
+                    case REPLAY_BROWSER -> discordHandler.updateRichPresence(replayModConfig.replayModMenuSection.buildPresence().getPresence());
+                    case REPLAY_EDITOR -> discordHandler.updateRichPresence(replayModConfig.replayModEditorSection.buildPresence().getPresence());
+                    case REPLAY_RENDER -> discordHandler.updateRichPresence(replayModConfig.replayModRenderSection.buildPresence().getPresence());
                 }
                 return;
             }
