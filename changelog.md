@@ -15,3 +15,4 @@
 - Fix `health.percent` placeholder being reversed
 - Fix `realm.world` placeholder falling back to Uppercase "World", instead of lowercase
 - Fix RPC events not respecting their `enabled` flag
+- Fixed Launcher Detection not working

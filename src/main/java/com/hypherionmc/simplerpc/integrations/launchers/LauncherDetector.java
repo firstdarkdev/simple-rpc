@@ -27,11 +27,11 @@ public final class LauncherDetector {
     private String launcherIcon = "unknown";
 
     private final ArrayList<Launcher> supportedLaunchers = new ArrayList<>() {{
-        new ATLauncher();
-        new CurseForge();
-        new Modrinth();
-        new MultiMC();
-        new Technic();
+        add(new ATLauncher());
+        add(new CurseForge());
+        add(new Modrinth());
+        add(new MultiMC());
+        add(new Technic());
     }};
 
     public void loadLaunchers() {
