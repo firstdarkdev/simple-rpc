@@ -38,7 +38,7 @@ public final class MultiMC implements Launcher {
                 packName = properties.getProperty("name", "Unknown Pack");
                 icon = properties.getProperty("iconKey", "infinity");
 
-                if (prismInstance.exists())
+                if (prismInstance.exists() || System.getProperties().containsKey("org.prismlauncher.instance.name"))
                     type = LauncherType.PRISM;
 
                 hasLoaded = true;
@@ -53,7 +53,7 @@ public final class MultiMC implements Launcher {
 
     @Override
     public String getLauncherName() {
-        return getLauncherType() == LauncherType.MULTIMC ? "MultiMC" : "PrismLauncher";
+        return getLauncherType() == LauncherType.MULTIMC ? "MultiMC" : "Prism Launcher";
     }
 
     @Override
