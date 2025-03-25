@@ -141,7 +141,7 @@ publisher {
     setVersion("beta")
     setChangelog(project.rootProject.file("changelog.md"))
     setProjectVersion("${project.version}")
-    setDisplayName("[1.18.2 - 1.21.4] Simple RPC Universal ${project.version}")
+    setDisplayName("[1.18.2 - 1.21.5] Simple RPC Universal ${project.version}")
     setGameVersions("1.18.2", "1.19.2", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.4", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5")
     setLoaders("fabric", "forge", "neoforge", "quilt")
     setArtifact(shadowJar)
