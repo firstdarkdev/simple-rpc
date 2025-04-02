@@ -45,7 +45,8 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.name", "Unknown Player", minecraft::getUserName);
 
         // Images
-        PlaceholderEngine.INSTANCE.registerPlaceholder("images.player", "", () -> String.format("https://mc-heads.net/avatar/%s/512", minecraft.getPlayerId().toString()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("images.player", "", () -> String.format("https://skinatar.firstdark.dev/avatar/%s", minecraft.getPlayerId().toString()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("images.player.head", "", () -> String.format("https://skinatar.firstdark.dev/head/%s", minecraft.getPlayerId().toString()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("images.realm", () -> realmsServer != null && minecraft.isRealmServer(), "none", () -> realmsServer.getMinigameImage());
         PlaceholderEngine.INSTANCE.registerPlaceholder("images.server", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "none", () -> String.format("https://api.mcsrvstat.us/icon/%s", minecraft.getCurrentServer().ip()));
 
@@ -104,7 +105,7 @@ public final class RPCVariables {
         // Custom Placeholders
         CustomVariablesConfig customVariablesConfig = SimpleRPCCore.INSTANCE.getClientConfig().variablesConfig;
         if (customVariablesConfig.enabled) {
-            customVariablesConfig.variables.forEach(v -> PlaceholderEngine.INSTANCE.registerPlaceholder("custom." + v.name, v.value, () -> v.value));
+            customVariablesConfig.variables.forEach(v -> PlaceholderEngine.INSTANCE.registerPlaceholder("custom." + v.name, v.value, () -> PlaceholderEngine.INSTANCE.resolvePlaceholders(v.value)));
         }
 
         // Replay Mod Variables - Only available if replay mod is installed
