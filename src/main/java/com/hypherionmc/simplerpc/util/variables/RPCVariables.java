@@ -20,6 +20,7 @@ import com.hypherionmc.simplerpc.integrations.known.KnownDimensionHelper;
 import com.hypherionmc.simplerpc.integrations.launchers.LauncherDetector;
 import com.hypherionmc.simplerpc.util.CompatUtils;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -36,13 +37,13 @@ public final class RPCVariables {
      * Register all valid Placeholders, including custom ones
      */
     public static void register() {
-
         PlaceholderEngine.INSTANCE.clear();
 
         // Global
         PlaceholderEngine.INSTANCE.registerPlaceholder("game.version", "1.21", minecraft::getGameVersion);
         PlaceholderEngine.INSTANCE.registerPlaceholder("game.mods", "0", () -> String.valueOf(ModloaderEnvironment.INSTANCE.getModCount()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.name", "Unknown Player", minecraft::getUserName);
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.uuid", NotNullValidator.of(minecraft::getPlayer), UUID.randomUUID().toString(), () -> minecraft.getPlayerId().toString());
 
         // Images
         PlaceholderEngine.INSTANCE.registerPlaceholder("images.player", "", () -> String.format("https://skinatar.firstdark.dev/avatar/%s", minecraft.getPlayerId().toString()));

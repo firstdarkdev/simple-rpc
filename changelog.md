@@ -15,4 +15,5 @@
 **New Features**:
 
 - Added `{{images.player.head}}` placeholder to return isometric player head image
+- Added `{{player.uuid}}` placeholder to return the player UUID for use with avatar services
 - Experimental RPC Image Server support, to allow using local images directly as RPC assets
