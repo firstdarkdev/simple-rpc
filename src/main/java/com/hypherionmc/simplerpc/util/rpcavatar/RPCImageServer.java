@@ -1,6 +1,7 @@
 package com.hypherionmc.simplerpc.util.rpcavatar;
 
 import com.hypherionmc.simplerpc.RPCConstants;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import lombok.Getter;
 
 import java.io.File;
@@ -22,7 +23,7 @@ public final class RPCImageServer {
     private final HashMap<String, String> fileMap = new HashMap<>();
     @Getter private boolean isUploading = false;
 
-    public static final RPCImageServer INSTANCE = new RPCImageServer(new File("./config/simple-rpc/icons"), "https://rpcavatar.firstdark.dev");
+    public static final RPCImageServer INSTANCE = new RPCImageServer(new File("./config/simple-rpc/icons"), SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServerUrl);
 
     /**
      * Create a new instance of the Image Server client
@@ -41,6 +42,10 @@ public final class RPCImageServer {
      * Scan images folder for images, and check if they need to be uploaded to the image server
      */
     public void processImages() {
+        if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer) {
+            return;
+        }
+
         File[] files = iconsDirectory.listFiles();
         fileMap.clear();
 

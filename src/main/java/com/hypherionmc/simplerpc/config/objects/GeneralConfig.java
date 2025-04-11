@@ -27,9 +27,17 @@ public final class GeneralConfig {
     @SpecComment("Display the Icon and Pack Name in place of LargeImage from compatible launchers. DOES NOT WORK WITH CUSTOM APPS! ONLY THE DEFAULT ONE!")
     public boolean launcherIntegration = false;
 
+    @Path("rpcImageServer")
+    @SpecComment("Allow using local image files, as RPC icons")
+    public boolean rpcImageServer = false;
+
+    @Path("rpcImageServerUrl")
+    @SpecComment("The URL of the RPC image server that will be used for local images. Restart required when changed")
+    public String rpcImageServerUrl = "https://rpcavatar.firstdark.dev";
+
     @Path("version")
     @SpecComment("Internal Version Number. NO TOUCHY!")
     @HideFromScreen
-    public static int version = 25;
+    public static int version = 26;
 
 }

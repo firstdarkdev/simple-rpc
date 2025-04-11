@@ -1,6 +1,7 @@
 package com.hypherionmc.simplerpc.api.rpc;
 
 import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
 import dev.firstdark.rpc.enums.ActivityType;
 import dev.firstdark.rpc.models.DiscordRichPresence;
@@ -184,6 +185,9 @@ public final class RichPresenceBuilder {
      */
     private String processImage(String input) {
         input = PlaceholderEngine.INSTANCE.resolvePlaceholders(input);
+
+        if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer)
+            return input;
 
         if (!RPCImageServer.INSTANCE.isUploading() && !input.startsWith("http") && (input.endsWith(".png")
                 || input.endsWith(".jpg") || input.endsWith(".jpeg") || input.endsWith(".gif") || input.endsWith(".webp") || input.endsWith(".svg"))) {

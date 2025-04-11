@@ -110,7 +110,9 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
     public void configReloaded() {
         core.setClientConfig(this.readConfig(this));
         RPCVariables.register();
-        RPCImageServer.INSTANCE.processImages();
+
+        if (this.general.rpcImageServer)
+            RPCImageServer.INSTANCE.processImages();
     }
 
     @Override
