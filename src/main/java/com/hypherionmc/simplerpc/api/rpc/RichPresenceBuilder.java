@@ -1,6 +1,7 @@
 package com.hypherionmc.simplerpc.api.rpc;
 
 import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
+import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
 import dev.firstdark.rpc.enums.ActivityType;
 import dev.firstdark.rpc.models.DiscordRichPresence;
 import lombok.Getter;
@@ -148,7 +149,7 @@ public final class RichPresenceBuilder {
             presence.details(parseAndLimit(details, 128));
 
         if (!largeImage.isEmpty()) {
-            presence.largeImageKey(PlaceholderEngine.INSTANCE.resolvePlaceholders(largeImage));
+            presence.largeImageKey(processImage(largeImage));
 
             if (!largeImageText.isEmpty()) {
                 presence.largeImageText(parseAndLimit(largeImageText, 128));
@@ -156,7 +157,7 @@ public final class RichPresenceBuilder {
         }
 
         if (!smallImage.isEmpty()) {
-            presence.smallImageKey(PlaceholderEngine.INSTANCE.resolvePlaceholders(smallImage));
+            presence.smallImageKey(processImage(smallImage));
 
             if (!smallImageText.isEmpty()) {
                 presence.smallImageText(parseAndLimit(smallImageText, 128));
@@ -173,6 +174,23 @@ public final class RichPresenceBuilder {
         presence.activityType(this.type);
 
         return presence.build();
+    }
+
+    /**
+     * Process image keys, to check if the specified image key is a local file, URL or discord asset key
+     *
+     * @param input The config input to parse
+     * @return The image URL for the RPC Image server, or the raw input with placeholders parsed
+     */
+    private String processImage(String input) {
+        input = PlaceholderEngine.INSTANCE.resolvePlaceholders(input);
+
+        if (!RPCImageServer.INSTANCE.isUploading() && !input.startsWith("http") && (input.endsWith(".png")
+                || input.endsWith(".jpg") || input.endsWith(".jpeg") || input.endsWith(".gif") || input.endsWith(".webp") || input.endsWith(".svg"))) {
+            return RPCImageServer.INSTANCE.getImageUrl() + "/" + RPCImageServer.INSTANCE.getHash(input);
+        }
+
+        return input;
     }
 
 }

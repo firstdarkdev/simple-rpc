@@ -15,3 +15,4 @@
 **New Features**:
 
 - Added `{{images.player.head}}` placeholder to return isometric player head image
+- Experimental RPC Image Server support, to allow using local images directly as RPC assets

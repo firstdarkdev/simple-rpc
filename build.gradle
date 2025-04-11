@@ -52,6 +52,7 @@ configurations {
 dependencies {
     compileOnly "com.hypherionmc.craterlib:CraterLib-Common-1.20.4:${craterlib}:dev"
     compileOnly "maven.modrinth:replaymod:1.20.4-2.6.14"
+    shade 'org.jodd:jodd-http:6.2.1'
 
     shade("dev.firstdark.discordrpc:discord-rpc:${rpc_version}")
 }
@@ -62,6 +63,7 @@ shadowJar {
     setArchiveClassifier(null)
 
     relocate("dev.firstdark.rpc", "com.hypherionmc.simplerpc.rpcsdk")
+    relocate("jodd", "com.hypherionmc.simplerpc.jodd")
     exclude("logback.xml")
 }
 

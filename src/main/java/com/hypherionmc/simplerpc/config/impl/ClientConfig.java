@@ -10,6 +10,7 @@ import com.hypherionmc.simplerpc.config.objects.GeneralConfig;
 import com.hypherionmc.simplerpc.config.objects.RichPresenceModel;
 import com.hypherionmc.simplerpc.config.presence.*;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
+import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
 import com.hypherionmc.simplerpc.util.variables.RPCVariables;
 import dev.firstdark.rpc.enums.ActivityType;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
@@ -109,6 +110,7 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
     public void configReloaded() {
         core.setClientConfig(this.readConfig(this));
         RPCVariables.register();
+        RPCImageServer.INSTANCE.processImages();
     }
 
     @Override
