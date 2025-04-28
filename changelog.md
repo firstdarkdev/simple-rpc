@@ -16,4 +16,8 @@
 
 - Added `{{images.player.head}}` placeholder to return isometric player head image
 - Added `{{player.uuid}}` placeholder to return the player UUID for use with avatar services
-- Experimental RPC Image Server support, to allow using local images directly as RPC assets
+- Experimental RPC Image Server support, to allow using local images directly as RPC assets - [DOCS](https://srpcbeta.fdd-docs.com/experimental/localimages/)
+
+**Changes**:
+
+- Switched from using MC-HEADS to our own api for skins (mc-heads have had too many issues lately)
