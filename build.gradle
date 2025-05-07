@@ -140,7 +140,7 @@ publisher {
     setCurseID("${curse_id}")
     setModrinthID("${modrinth_id}")
     setNightbloomID("simplerpc")
-    setVersion("beta")
+    setReleaseType("beta")
     setChangelog(project.rootProject.file("changelog.md"))
     setProjectVersion("${project.version}")
     setDisplayName("[1.18.2 - 1.21.5] Simple RPC Universal ${project.version}")
