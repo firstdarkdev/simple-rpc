@@ -22,6 +22,7 @@ import shadow.kyori.adventure.text.format.TextDecoration;
 public final class SimpleRPCClient {
 
     private static boolean hasShownWarning = false;
+    private static boolean isPaused = false;
 
     public static void setupEvents() {
         CraterEventBus.INSTANCE.registerEventListener(SimpleRPCClient.class);
@@ -54,6 +55,9 @@ public final class SimpleRPCClient {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.MAIN_MENU);
         }
 
+        if (isPaused && event.getNewScreen() == null)
+            isPaused = false;
+
         if (event.getScreen().isRealmsScreen()) {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.REALM_MENU);
         }
@@ -64,6 +68,7 @@ public final class SimpleRPCClient {
 
         if (event.getScreen().isPauseScreen()) {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.PAUSED);
+            isPaused = true;
         }
 
         if (event.getScreen().isLoadingScreen()) {
@@ -78,7 +83,7 @@ public final class SimpleRPCClient {
 
     @CraterEventListener
     public static void clientTick(CraterClientTickEvent event) {
-        if (event.getLevel() == null || !event.getLevel().isClientSide())
+        if (event.getLevel() == null || !event.getLevel().isClientSide() || isPaused)
             return;
 
         if (event.getLevel().getGameTime() % 40L == 0L) {

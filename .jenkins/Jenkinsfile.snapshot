@@ -1,6 +1,6 @@
 def projectName = "Simple Discord RPC";
 def projectIcon = "https://cdn.modrinth.com/data/ObXSoyrn/bdcee1893ca0f5fc03c7faec6135f39faaed8705.png";
-def releaseType = "beta";
+def releaseType = "rc";
 
 pipeline {
     agent {

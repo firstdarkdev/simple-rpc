@@ -51,7 +51,7 @@ public final class DimensionSection implements Serializable {
                     .setLargeImage(model.getLargeImageKey().getNextRandom().orElse(""))
                     .setLargeImageText(model.getLargeImageText())
                     .setSmallImage(model.getSmallImageKey().getNextRandom().orElse(""))
-                    .setSmallImageText(model.getLargeImageText())
+                    .setSmallImageText(model.getSmallImageText())
                     .setState(model.getState())
                     .setButtons(model.getButtons());
         }

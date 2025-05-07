@@ -34,7 +34,7 @@ public final class ServerEntry implements RichPresenceContainer {
                 .setLargeImage(model.getLargeImageKey().getNextRandom().orElse(""))
                 .setLargeImageText(model.getLargeImageText())
                 .setSmallImage(model.getSmallImageKey().getNextRandom().orElse(""))
-                .setSmallImageText(model.getLargeImageText())
+                .setSmallImageText(model.getSmallImageText())
                 .setState(model.getState())
                 .setButtons(model.getButtons());
     }

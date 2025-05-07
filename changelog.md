@@ -10,14 +10,5 @@
 
 **Bug Fixes**:
 
-- Fix Custom Placeholders not being able to use built-in placeholders in them
-
-**New Features**:
-
-- Added `{{images.player.head}}` placeholder to return isometric player head image
-- Added `{{player.uuid}}` placeholder to return the player UUID for use with avatar services
-- Experimental RPC Image Server support, to allow using local images directly as RPC assets - [DOCS](https://srpcbeta.fdd-docs.com/experimental/localimages/)
-
-**Changes**:
-
-- Switched from using MC-HEADS to our own api for skins (mc-heads have had too many issues lately)
+- Fix Dimension Overrides and Server Overrides ignoring `smallImageText`
+- Fix Pause RPC clearing at random when connected to a server

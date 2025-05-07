@@ -12,7 +12,7 @@ import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
 
 import java.util.ArrayList;
 
-public class PauseSection implements RichPresenceContainer {
+public final class PauseSection implements RichPresenceContainer {
 
     @Path("enabled")
     @SpecComment("Enable/Disable the Pause Event")
