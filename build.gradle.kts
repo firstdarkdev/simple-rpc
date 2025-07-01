@@ -199,7 +199,9 @@ publishing {
     }
 
     repositories {
-        maven(orion.getPublishingMaven())
+        maven {
+            orion.getPublishingMaven()
+        }
     }
 }
 
