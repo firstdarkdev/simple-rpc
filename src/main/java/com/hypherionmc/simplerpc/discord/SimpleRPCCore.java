@@ -9,6 +9,7 @@ import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
 import com.hypherionmc.simplerpc.integrations.launchers.LauncherDetector;
 import com.hypherionmc.simplerpc.util.CompatUtils;
 import dev.firstdark.rpc.DiscordRpc;
+import dev.firstdark.rpc.exceptions.PipeAccessDenied;
 import dev.firstdark.rpc.models.DiscordRichPresence;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -171,6 +172,8 @@ public final class SimpleRPCCore {
             try {
                 discordRPC.init(clientConfig.general.discordid, new SimpleRpcDiscordEventHandler(), false);
                 SimpleRPCCore.taskManager.scheduleAtFixedRate(discordRPC::runCallbacks, 0, 500, TimeUnit.MILLISECONDS);
+            } catch (PipeAccessDenied ee) {
+                RPCConstants.logger.error("Failed to connect to Discord API because of a permission error. Check that your Discord/Game is NOT running in Administrator mode!");
             } catch (Exception e) {
                 if (clientConfig != null && clientConfig.general.debugging) {
                     RPCConstants.logger.error("Failed to connect to discord", e);
