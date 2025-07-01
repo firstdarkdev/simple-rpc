@@ -78,10 +78,12 @@ tasks.shadowJar {
     doLast {
         delete(tasks.jar.get().outputs.files)
     }
+
+    archiveClassifier.set("")
 }
 
 tasks.jar {
-    archiveBaseName.set("slim")
+    archiveClassifier.set("slim")
     finalizedBy(tasks.shadowJar)
 
     manifest {
@@ -186,10 +188,7 @@ tasks.register("sourcesJar", Jar::class) {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifactId = base.archivesBaseName
-            from(components["java"])
-
-            artifact(tasks.shadowJar.get()) {
+            artifact(tasks.shadowJar) {
                 builtBy(tasks.shadowJar)
             }
 
