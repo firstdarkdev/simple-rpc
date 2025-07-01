@@ -4,7 +4,7 @@ import java.util.Date
 
 plugins {
     id("java")
-    id("com.hypherionmc.modutils.orion") version "2.0.3"
+    id("com.hypherionmc.modutils.orion") version "2.0.4"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("xyz.wagyourtail.unimined") version "1.2.9"
     id("com.hypherionmc.modutils.modpublisher") version "2.1.6"
@@ -195,9 +195,7 @@ publishing {
     }
 
     repositories {
-        maven {
-            orion.getPublishingMaven()
-        }
+        maven(orion.getPublishingMaven())
     }
 }
 
