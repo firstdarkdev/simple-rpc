@@ -17,9 +17,6 @@ orion {
         enableReleasesMaven.set(true)
         enableSnapshotsMaven.set(true)
 
-
-        dopplerToken.set(System.getenv("DOPPLER_KEY"))
-
         versioning {
             var relType = project.properties["releaseType"] ?: orion.getProperty("release_type")
             identifier("$relType")
