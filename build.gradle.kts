@@ -152,7 +152,7 @@ publisher {
     setReleaseType(ReleaseType.RELEASE)
     changelog.set(project.rootProject.file("changelog.md"))
     projectVersion.set("${project.version}")
-    displayName.set("[1.18.2 - 1.21.5] Simple RPC Universal ${project.version}")
+    displayName.set("[1.18.2 - 1.21.7] Simple RPC Universal ${project.version}")
     setGameVersions("1.18.2", "1.19.2", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.4", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7")
     setLoaders("fabric", "forge", "neoforge", "quilt")
     artifact.set(tasks.shadowJar)
