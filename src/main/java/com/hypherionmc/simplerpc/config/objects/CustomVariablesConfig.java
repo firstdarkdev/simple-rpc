@@ -1,6 +1,5 @@
 package com.hypherionmc.simplerpc.config.objects;
 
-import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import shadow.hypherionmc.moonconfig.core.conversion.Path;
 import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
 

@@ -1,6 +1,5 @@
 package com.hypherionmc.simplerpc.config.objects;
 
-import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceBuilder;
 import com.hypherionmc.simplerpc.api.rpc.RichPresenceContainer;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package com.hypherionmc.simplerpc.config.impl;
 
-import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
 import com.hypherionmc.simplerpc.config.presence.ReplayModEditorSection;
 import com.hypherionmc.simplerpc.config.presence.ReplayModMenuSection;
@@ -14,7 +13,6 @@ import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
  *
  * Main Config for the Replay Mod integration
  */
-@NoConfigScreen
 public final class ReplayModConfig extends BaseRPCConfig<ReplayModConfig> {
 
     private transient final SimpleRPCCore core;

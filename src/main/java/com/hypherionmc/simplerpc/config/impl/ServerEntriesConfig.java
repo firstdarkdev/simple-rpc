@@ -1,6 +1,5 @@
 package com.hypherionmc.simplerpc.config.impl;
 
-import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
 import com.hypherionmc.simplerpc.config.objects.ServerEntry;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
@@ -16,7 +15,6 @@ import java.util.List;
  * Main Config allowing users to override the Multiplayer RPC based on the server they
  * are connected to
  */
-@NoConfigScreen
 public final class ServerEntriesConfig extends BaseRPCConfig<ServerEntriesConfig> {
 
     private transient final SimpleRPCCore core;
@@ -36,7 +34,10 @@ public final class ServerEntriesConfig extends BaseRPCConfig<ServerEntriesConfig
     public ServerEntriesConfig(SimpleRPCCore core) {
         super("server-entries", core.getLangCode());
         this.core = core;
-        registerAndSetup(this);
+
+        try {
+            registerAndSetup(this);
+        } catch (Exception ignored) {}
     }
 
     @Override

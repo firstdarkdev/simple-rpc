@@ -1,7 +1,6 @@
 package com.hypherionmc.simplerpc.config.impl;
 
 import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
-import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
 import com.hypherionmc.simplerpc.config.objects.CustomVariablesConfig;
@@ -103,7 +102,10 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
     public ClientConfig(SimpleRPCCore core) {
         super("simple-rpc", core.getLangCode());
         this.core = core;
-        registerAndSetup(this);
+
+        try {
+            registerAndSetup(this);
+        } catch (Exception ignored) {}
     }
 
     @Override
