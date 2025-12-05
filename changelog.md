@@ -1,6 +1,5 @@
 ## Requires CraterLib
 
-- Temporary Documentation: [Simple RPC Beta](https://srpcbeta.fdd-docs.com/)
 - Source Code: [GitHub](https://github.com/firstdarkdev/simple-rpc)
 - Report Issues: [GitHub](https://github.com/firstdarkdev/simple-rpc/issues)
 
