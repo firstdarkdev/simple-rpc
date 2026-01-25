@@ -37,7 +37,7 @@ java {
 }
 
 repositories {
-    mavenLocal()
+    //mavenLocal()
     mavenCentral()
 
     maven("https://api.modrinth.com/maven") {
