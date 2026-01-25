@@ -12,9 +12,9 @@ import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
 import com.hypherionmc.simplerpc.util.variables.RPCVariables;
 import dev.firstdark.rpc.enums.ActivityType;
-import shadow.hypherionmc.moonconfig.core.conversion.Path;
-import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
-import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.craterlib.libs.moonconfig.core.fields.RandomArrayList;
 
 import java.util.ArrayList;
 

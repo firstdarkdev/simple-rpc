@@ -1,12 +1,12 @@
 package com.hypherionmc.simplerpc.util.variables;
 
+import com.hypherionmc.craterlib.api.game.client.CraterGame;
+import com.hypherionmc.craterlib.api.game.core.CraterBlockPos;
+import com.hypherionmc.craterlib.api.game.realmsclient.dto.CraterRealmsServer;
+import com.hypherionmc.craterlib.api.game.resources.CraterIdentifier;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
-import com.hypherionmc.craterlib.nojang.core.BridgedBlockPos;
-import com.hypherionmc.craterlib.nojang.realmsclient.dto.BridgedRealmsServer;
-import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import com.hypherionmc.simplerpc.api.events.RPCEvents;
 import com.hypherionmc.simplerpc.api.utils.APIUtils;
 import com.hypherionmc.simplerpc.api.utils.MCTimeUtils;
@@ -30,8 +30,8 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public final class RPCVariables {
 
-    private static final BridgedMinecraft minecraft = BridgedMinecraft.getInstance();
-    public static BridgedRealmsServer realmsServer;
+    private static final CraterGame minecraft = CraterLoader.getClient();
+    public static CraterRealmsServer realmsServer;
 
     /**
      * Register all valid Placeholders, including custom ones
@@ -41,7 +41,7 @@ public final class RPCVariables {
 
         // Global
         PlaceholderEngine.INSTANCE.registerPlaceholder("game.version", "1.21", minecraft::getGameVersion);
-        PlaceholderEngine.INSTANCE.registerPlaceholder("game.mods", "0", () -> String.valueOf(ModloaderEnvironment.INSTANCE.getModCount()));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("game.mods", "0", () -> String.valueOf(CraterLoader.getModCount()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.name", "Unknown Player", minecraft::getUserName);
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.uuid", NotNullValidator.of(minecraft::getPlayer), UUID.randomUUID().toString(), () -> minecraft.getPlayerId().toString());
 
@@ -53,7 +53,7 @@ public final class RPCVariables {
 
         // World - These only resolve when the player is in a game
         PlaceholderEngine.INSTANCE.registerPlaceholder("world.name", NotNullValidator.of(minecraft::getLevel), "Unknown World", RPCVariables::resolveWorldName);
-        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", NotNullValidator.of(minecraft::getLevel), "Unknown World", () -> ChatUtils.resolve(minecraft.getLevel().getDifficulty(), false));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("world.difficulty", NotNullValidator.of(minecraft::getLevel), "Unknown World", () -> minecraft.getLevel().getDifficulty().asString());
         PlaceholderEngine.INSTANCE.registerPlaceholder("world.savename", NotNullValidator.of(minecraft::getLevel), "World", () -> {
             if (minecraft.getSinglePlayerServer() != null)
                 return minecraft.getSinglePlayerServer().getLevelName();
@@ -76,7 +76,7 @@ public final class RPCVariables {
 
         // Player - This will only resolve if the player is in game
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.position", NotNullValidator.of(minecraft::getPlayer), "x: 0, y: 0, z: 0", () -> {
-            BridgedBlockPos pos = minecraft.getPlayer().getOnPos();
+            CraterBlockPos pos = minecraft.getPlayer().getOnPos();
             return String.format("x: %s, y: %s, z: %s", pos.getX(), pos.getY(), pos.getZ());
         });
 
@@ -90,7 +90,7 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0.0.0.0", () -> minecraft.getCurrentServer().ip());
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip_underscore", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0_0_0_0", () -> minecraft.getCurrentServer().ip().replace(".", "_"));
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.name", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "Minecraft Server", () -> minecraft.getCurrentServer().name());
-        PlaceholderEngine.INSTANCE.registerPlaceholder("server.motd", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "A Minecraft Server", () -> ChatUtils.resolve(minecraft.getCurrentServer().motd(), false));
+        PlaceholderEngine.INSTANCE.registerPlaceholder("server.motd", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "A Minecraft Server", () -> minecraft.getCurrentServer().motd().asString());
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.players.count", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0", () -> String.valueOf(minecraft.getServerPlayerCount()));
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.players.countexcl", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0", () -> String.valueOf(minecraft.getServerPlayerCount() - 1));
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.players.max", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0", () -> String.valueOf(minecraft.getCurrentServer().getMaxPlayers()));
@@ -144,9 +144,9 @@ public final class RPCVariables {
     private static String resolveBiomeName() {
         AtomicReference<String> biome = new AtomicReference<>("Unknown Biome");
         if (minecraft.getLevel() != null && minecraft.getLevel().getBiomeIdentifier(minecraft.getPlayer().getOnPos()) != null) {
-            ResourceIdentifier location = minecraft.getLevel().getBiomeIdentifier(minecraft.getPlayer().getOnPos());
+            CraterIdentifier location = minecraft.getLevel().getBiomeIdentifier(minecraft.getPlayer().getOnPos());
             if (KnownBiomeHelper.tryKnownBiomes(location.getPath()).equalsIgnoreCase(location.getPath())) {
-                biome.set(ChatUtils.resolve(ChatUtils.getBiomeName(location), false));
+                biome.set(Text.getBiomeName(location).asString());
             } else {
                 biome.set(KnownBiomeHelper.tryKnownBiomes(location.getPath()));
             }

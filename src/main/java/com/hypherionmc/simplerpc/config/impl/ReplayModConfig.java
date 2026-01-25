@@ -5,8 +5,8 @@ import com.hypherionmc.simplerpc.config.presence.ReplayModEditorSection;
 import com.hypherionmc.simplerpc.config.presence.ReplayModMenuSection;
 import com.hypherionmc.simplerpc.config.presence.ReplayModRenderSection;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
-import shadow.hypherionmc.moonconfig.core.conversion.Path;
-import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
 
 /**
  * @author HypherionSA

@@ -19,9 +19,6 @@
 
     "environment": "*",
     "entrypoints": {
-      "client": [
-          "com.hypherionmc.simplerpc.loaders.fabric.SRPCFabricClient"
-      ]
     },
     "mixins": [
       "simplerpc.fabric.mixins.json"

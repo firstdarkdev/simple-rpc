@@ -6,9 +6,9 @@ import com.hypherionmc.simplerpc.config.objects.RichPresenceModel;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.enums.GameType;
 import dev.firstdark.rpc.enums.ActivityType;
-import shadow.hypherionmc.moonconfig.core.conversion.Path;
-import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
-import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.craterlib.libs.moonconfig.core.fields.RandomArrayList;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
 package com.hypherionmc.simplerpc.config.objects;
 
-import shadow.hypherionmc.moonconfig.core.conversion.Path;
-import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
 
 import java.util.ArrayList;
 import java.util.List;

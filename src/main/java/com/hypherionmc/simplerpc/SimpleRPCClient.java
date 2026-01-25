@@ -1,18 +1,17 @@
 package com.hypherionmc.simplerpc;
 
 import com.hypherionmc.craterlib.api.events.client.*;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.event.annot.CraterEventListener;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.enums.GameType;
 import com.hypherionmc.simplerpc.enums.RichPresenceState;
 import com.hypherionmc.simplerpc.util.variables.RPCVariables;
-import shadow.kyori.adventure.text.Component;
-import shadow.kyori.adventure.text.format.NamedTextColor;
-import shadow.kyori.adventure.text.format.Style;
-import shadow.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextDecoration;
 
 /**
  * @author HypherionSA
@@ -35,7 +34,7 @@ public final class SimpleRPCClient {
 
     @CraterEventListener
     public static void playerJoinGame(CraterSinglePlayerEvent.PlayerLogin event) {
-        if (event.getPlayer().getStringUUID().equals(BridgedMinecraft.getInstance().getPlayer().getStringUUID())) {
+        if (event.getPlayer().getStringUUID().equals(CraterLoader.getClient().getPlayer().getStringUUID())) {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.JOINING_GAME);
         }
     }
@@ -43,10 +42,10 @@ public final class SimpleRPCClient {
     @CraterEventListener
     public static void screenOpenEvent(ScreenEvent.Opening event) {
         if (event.getScreen().isTitleScreen()) {
-            if (ModloaderEnvironment.INSTANCE.isModLoaded("craftpresence") && !hasShownWarning) {
-                BridgedMinecraft.getInstance().showWarningScreen(
-                        Component.text("Warning").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
-                        Component.text("You have both Simple RPC and CraftPresence installed. This will cause your RPC to break and behave badly. Please remove either mod and restart the game")
+            if (CraterLoader.isModLoaded("craftpresence") && !hasShownWarning) {
+                CraterLoader.getClient().showWarningScreen(
+                        Text.literal("Warning").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
+                        Text.literal("You have both Simple RPC and CraftPresence installed. This will cause your RPC to break and behave badly. Please remove either mod and restart the game")
                 );
                 hasShownWarning = true;
             }
@@ -58,7 +57,7 @@ public final class SimpleRPCClient {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.REALM_MENU);
         }
 
-        if (event.getScreen().isServerBrowserScreen() || event.getScreen().isDisconnetedScreen()) {
+        if (event.getScreen().isServerBrowserScreen() || event.getScreen().isDisconnectedScreen()) {
             SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.SERVER_MENU);
         }
 
@@ -82,10 +81,10 @@ public final class SimpleRPCClient {
             return;
 
         if (event.getLevel().getGameTime() % 40L == 0L) {
-            if (BridgedMinecraft.getInstance().isRealmServer()) {
+            if (CraterLoader.getClient().isRealmServer()) {
                 SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.IN_GAME, GameType.REALM);
             } else {
-                SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.IN_GAME, BridgedMinecraft.getInstance().isSinglePlayer() ? GameType.SINGLE : GameType.MULTIPLAYER);
+                SimpleRPCCore.INSTANCE.getEvents().setRPCState(RichPresenceState.IN_GAME, CraterLoader.getClient().isSinglePlayer() ? GameType.SINGLE : GameType.MULTIPLAYER);
             }
         }
     }

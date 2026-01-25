@@ -1,7 +1,7 @@
 package com.hypherionmc.simplerpc.api.utils;
 
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
-import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import com.hypherionmc.craterlib.api.game.resources.CraterIdentifier;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.simplerpc.api.variables.PlaceholderEngine;
 import com.hypherionmc.simplerpc.config.objects.DimensionSection;
 import org.apache.commons.lang3.text.WordUtils;
@@ -86,8 +86,8 @@ public class APIUtils {
      * @return The world registry key or unknown
      */
     private static String getWorld() {
-        if (BridgedMinecraft.getInstance().getLevel() != null && BridgedMinecraft.getInstance().getLevel().getDimensionKey() != null) {
-            return BridgedMinecraft.getInstance().getLevel().getDimensionKey().getString();
+        if (CraterLoader.getClient().getLevel() != null && CraterLoader.getClient().getLevel().getDimensionKey() != null) {
+            return CraterLoader.getClient().getLevel().getDimensionKey().getString();
         }
 
         return "unknown";
@@ -99,8 +99,8 @@ public class APIUtils {
      * @return The biome registry key or unknown
      */
     private static String getBiome() {
-        if (BridgedMinecraft.getInstance().getLevel() != null && BridgedMinecraft.getInstance().getPlayer() != null) {
-            ResourceIdentifier identifier = BridgedMinecraft.getInstance().getLevel().getBiomeIdentifier(BridgedMinecraft.getInstance().getPlayer().getOnPos());
+        if (CraterLoader.getClient().getLevel() != null && CraterLoader.getClient().getPlayer() != null) {
+            CraterIdentifier identifier = CraterLoader.getClient().getLevel().getBiomeIdentifier(CraterLoader.getClient().getPlayer().getOnPos());
             return identifier != null ? identifier.getString() : "unknown";
         }
 

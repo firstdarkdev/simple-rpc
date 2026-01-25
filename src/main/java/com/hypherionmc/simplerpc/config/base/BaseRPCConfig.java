@@ -2,15 +2,15 @@ package com.hypherionmc.simplerpc.config.base;
 
 import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
+import com.hypherionmc.craterlib.libs.moonconfig.core.CommentedConfig;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.ObjectConverter;
+import com.hypherionmc.craterlib.libs.moonconfig.core.fields.RandomArrayList;
+import com.hypherionmc.craterlib.libs.moonconfig.core.file.CommentedFileConfig;
 import com.hypherionmc.simplerpc.RPCConstants;
 import com.hypherionmc.simplerpc.api.rpc.ButtonWrapper;
 import com.hypherionmc.simplerpc.config.impl.ClientConfig;
 import com.hypherionmc.simplerpc.config.impl.ReplayModConfig;
 import com.hypherionmc.simplerpc.config.impl.ServerEntriesConfig;
-import shadow.hypherionmc.moonconfig.core.CommentedConfig;
-import shadow.hypherionmc.moonconfig.core.conversion.ObjectConverter;
-import shadow.hypherionmc.moonconfig.core.fields.RandomArrayList;
-import shadow.hypherionmc.moonconfig.core.file.CommentedFileConfig;
 
 import java.io.File;
 import java.util.ArrayList;

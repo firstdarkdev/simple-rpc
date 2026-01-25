@@ -3,8 +3,8 @@ package com.hypherionmc.simplerpc.config.impl;
 import com.hypherionmc.simplerpc.config.base.BaseRPCConfig;
 import com.hypherionmc.simplerpc.config.objects.ServerEntry;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
-import shadow.hypherionmc.moonconfig.core.conversion.Path;
-import shadow.hypherionmc.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
+import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
 
 import java.util.ArrayList;
 import java.util.List;

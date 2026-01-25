@@ -37,6 +37,7 @@ java {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 
     maven("https://api.modrinth.com/maven") {
@@ -54,7 +55,7 @@ configurations {
 
 dependencies {
     // CraterLib
-    compileOnly("com.hypherionmc.craterlib:CraterLib-Common-1.20:${orion.getProperty("craterlib")}")
+    compileOnly("com.hypherionmc.craterlib:CraterLib-API:${orion.getProperty("craterlib")}")
 
     // Shaded
     shade("org.jodd:jodd-http:6.2.1")
@@ -152,8 +153,8 @@ publisher {
     setReleaseType(ReleaseType.RELEASE)
     changelog.set(project.rootProject.file("changelog.md"))
     projectVersion.set("${project.version}")
-    displayName.set("[1.18.2 - 1.21.10] Simple RPC Universal ${project.version}")
-    setGameVersions("1.18.2", "1.19.2", "1.20", "1.20.1", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10")
+    displayName.set("[1.18.2 - 1.21.11] Simple RPC Universal ${project.version}")
+    setGameVersions("1.18.2", "1.19.2", "1.20", "1.20.1", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11")
     setLoaders("fabric", "forge", "neoforge", "quilt")
     artifact.set(tasks.shadowJar)
     setCurseEnvironment("both")
