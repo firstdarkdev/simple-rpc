@@ -5,6 +5,7 @@ import com.hypherionmc.craterlib.api.game.core.CraterBlockPos;
 import com.hypherionmc.craterlib.api.game.realmsclient.dto.CraterRealmsServer;
 import com.hypherionmc.craterlib.api.game.resources.CraterIdentifier;
 import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.game.world.level.CraterGameType;
 import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.simplerpc.api.events.RPCEvents;
@@ -19,6 +20,7 @@ import com.hypherionmc.simplerpc.integrations.known.KnownBiomeHelper;
 import com.hypherionmc.simplerpc.integrations.known.KnownDimensionHelper;
 import com.hypherionmc.simplerpc.integrations.launchers.LauncherDetector;
 import com.hypherionmc.simplerpc.util.CompatUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -85,6 +87,16 @@ public final class RPCVariables {
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.health.percent", NotNullValidator.of(minecraft::getPlayer), "0%", () -> String.valueOf(Math.round((minecraft.getPlayer().getHealth() / minecraft.getPlayer().getMaxHealth()) * 100)));
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.off_hand", NotNullValidator.of(minecraft::getPlayer), "Air", () -> minecraft.getPlayer().getHeldItemOffHand());
         PlaceholderEngine.INSTANCE.registerPlaceholder("player.item.main_hand", NotNullValidator.of(minecraft::getPlayer), "Air", () -> minecraft.getPlayer().getHeldItemMainHand());
+
+        PlaceholderEngine.INSTANCE.registerPlaceholder("player.gamemode", NotNullValidator.of(minecraft::getPlayer), "Survival", () -> {
+            CraterGameType type = minecraft.getPlayer().getGameMode();
+
+            if (minecraft.isSinglePlayer() && minecraft.getSinglePlayerServer().isHardcore() && type.isSurvival()) {
+                return "Hardcore";
+            }
+
+            return StringUtils.capitalize(type.getName());
+        });
 
         // Server - This will only resolve when playing on a server
         PlaceholderEngine.INSTANCE.registerPlaceholder("server.ip", () -> minecraft.getCurrentServer() != null && !minecraft.isRealmServer(), "0.0.0.0", () -> minecraft.getCurrentServer().ip());
