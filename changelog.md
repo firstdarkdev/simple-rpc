@@ -7,6 +7,10 @@
 
 ### WARNING: Configs from older versions of Simple RPC (3.x and below) are NOT compatible with these versions. You will need to redo your config.
 
+**Bug Fixes**:
+
+- Fixed Fabric API modid - #13 - HypherionSA
+
 **Changes**:
 
 - Updated to work with CraterLib loader (modloader). Possible future Hytale support - HypherionSA
