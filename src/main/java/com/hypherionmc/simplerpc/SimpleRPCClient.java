@@ -5,13 +5,13 @@ import com.hypherionmc.craterlib.api.game.text.Text;
 import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.event.annot.CraterEventListener;
+import com.hypherionmc.craterlib.libs.kyori.adventure.text.format.NamedTextColor;
+import com.hypherionmc.craterlib.libs.kyori.adventure.text.format.Style;
+import com.hypherionmc.craterlib.libs.kyori.adventure.text.format.TextDecoration;
 import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.enums.GameType;
 import com.hypherionmc.simplerpc.enums.RichPresenceState;
 import com.hypherionmc.simplerpc.util.variables.RPCVariables;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.format.TextDecoration;
 
 /**
  * @author HypherionSA
