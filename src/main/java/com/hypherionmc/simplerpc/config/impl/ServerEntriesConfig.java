@@ -25,7 +25,7 @@ public final class ServerEntriesConfig extends BaseRPCConfig<ServerEntriesConfig
 
     @Path("version")
     @SpecComment("Internal Version Number. NO TOUCHY!")
-    public static int version = 3;
+    public int version = 3;
 
     @Path("entry")
     @SpecComment("Server override entries")

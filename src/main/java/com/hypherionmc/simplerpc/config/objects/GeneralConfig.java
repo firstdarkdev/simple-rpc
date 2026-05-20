@@ -3,6 +3,7 @@ package com.hypherionmc.simplerpc.config.objects;
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.Path;
 import com.hypherionmc.craterlib.libs.moonconfig.core.conversion.SpecComment;
+import com.hypherionmc.simplerpc.config.impl.ClientConfig;
 
 /**
  * @author HypherionSA
@@ -38,6 +39,6 @@ public final class GeneralConfig {
     @Path("version")
     @SpecComment("Internal Version Number. NO TOUCHY!")
     @HideFromScreen
-    public static int version = 26;
+    public int version = ClientConfig.version;
 
 }

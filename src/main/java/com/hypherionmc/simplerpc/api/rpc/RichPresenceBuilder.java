@@ -189,9 +189,9 @@ public final class RichPresenceBuilder {
         if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer)
             return input;
 
-        if (!RPCImageServer.INSTANCE.isUploading() && !input.startsWith("http") && (input.endsWith(".png")
-                || input.endsWith(".jpg") || input.endsWith(".jpeg") || input.endsWith(".gif") || input.endsWith(".webp") || input.endsWith(".svg"))) {
-            return RPCImageServer.INSTANCE.getImageUrl() + "/" + RPCImageServer.INSTANCE.getHash(input);
+        if (!RPCImageServer.INSTANCE.isUploading() && RPCImageServer.INSTANCE.getCachedImage(input) != null) {
+            System.out.println("Image already cached: " + RPCImageServer.INSTANCE.getCachedImage(input));
+            return RPCImageServer.INSTANCE.getCachedImage(input);
         }
 
         return input;

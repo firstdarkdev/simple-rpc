@@ -172,6 +172,7 @@ public final class SimpleRPCCore {
             try {
                 discordRPC.init(clientConfig.general.discordid, new SimpleRpcDiscordEventHandler(), false);
                 SimpleRPCCore.taskManager.scheduleAtFixedRate(discordRPC::runCallbacks, 0, 500, TimeUnit.MILLISECONDS);
+                RPCConstants.logger.info("Connected to Discord API");
             } catch (PipeAccessDenied ee) {
                 RPCConstants.logger.error("Failed to connect to Discord API because of a permission error. Check that your Discord/Game is NOT running in Administrator mode!");
             } catch (Exception e) {

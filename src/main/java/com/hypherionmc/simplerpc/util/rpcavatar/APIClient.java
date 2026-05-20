@@ -43,6 +43,9 @@ final class APIClient {
 
             if (response.statusCode() != 200 || response.bodyText() == null) {
                 RPCConstants.logger.error("Failed to check local image hashes against API: {}", response.statusCode());
+                if (response.bodyText() != null) {
+                    RPCConstants.logger.error(response.bodyText());
+                }
                 return new HashSet<>();
             }
 

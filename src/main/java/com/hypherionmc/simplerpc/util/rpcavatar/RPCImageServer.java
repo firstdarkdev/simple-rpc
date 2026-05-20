@@ -42,9 +42,8 @@ public final class RPCImageServer {
      * Scan images folder for images, and check if they need to be uploaded to the image server
      */
     public void processImages() {
-        if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer) {
+        if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer)
             return;
-        }
 
         File[] files = iconsDirectory.listFiles();
         fileMap.clear();
@@ -59,6 +58,8 @@ public final class RPCImageServer {
                 }
             }
         }
+
+        if (fileMap.isEmpty()) return;
 
         // Check which images are missing from the server cache
         Set<String> hashes = apiClient.checkHashes(fileMap.values());
@@ -85,6 +86,35 @@ public final class RPCImageServer {
             });
 
             thread.start();
+        }
+    }
+
+    public void processLauncherIcon(File icon) {
+        if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer)
+            return;
+
+        if (!isValidImage(icon)) return;
+        String hash = "";
+
+        try {
+            hash = hashFile(icon);
+        } catch (Exception e) {
+            RPCConstants.logger.error("Failed to process launcher icon file: {}", icon.getName(), e);
+        }
+
+        if (hash.isEmpty()) return;
+
+        Set<String> hashes = apiClient.checkHashes(Collections.singleton(hash));
+
+        if (!hashes.contains(hash)) {
+            try {
+                apiClient.uploadFiles(Collections.singletonList(icon));
+                fileMap.put(icon.getName(), hash);
+            } catch (Exception e) {
+                RPCConstants.logger.error("Failed to upload launcher icon to RPC Image Server", e);
+            }
+        } else {
+            fileMap.put(icon.getName(), hash);
         }
     }
 
@@ -124,6 +154,13 @@ public final class RPCImageServer {
         StringBuilder sb = new StringBuilder();
         for (byte b : hashBytes) sb.append(String.format("%02x", b));
         return sb.toString();
+    }
+
+    public String getCachedImage(String filename) {
+        if (fileMap.containsKey(filename))
+            return imageUrl + "/" + fileMap.get(filename);
+
+        return null;
     }
 
     /**

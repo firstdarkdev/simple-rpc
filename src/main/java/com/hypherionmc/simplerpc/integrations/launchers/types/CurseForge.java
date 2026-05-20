@@ -3,8 +3,11 @@ package com.hypherionmc.simplerpc.integrations.launchers.types;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.hypherionmc.simplerpc.api.utils.APIUtils;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.enums.LauncherType;
 import com.hypherionmc.simplerpc.integrations.launchers.Launcher;
+import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -17,7 +20,8 @@ public final class CurseForge implements Launcher {
 
     private boolean hasLoaded = false;
     private String packName = "Unknown Pack";
-    private LauncherType type = LauncherType.GDLAUNCHER;
+    private String icon = "curse";
+    private LauncherType type = LauncherType.CURSEFORGE;
 
     @Override
     public LauncherType getLauncherType() {
@@ -35,15 +39,47 @@ public final class CurseForge implements Launcher {
                 String packString = readLauncherFile(pack.exists() ? pack : alternative);
                 JsonObject object = new Gson().fromJson(packString, JsonObject.class);
                 packName = object.getAsJsonPrimitive("name").getAsString();
+                String additionalIcon = getAdditionalIcon(object);
                 hasLoaded = true;
 
                 if (gdDir.getName().contains("gdl")) {
                     type = LauncherType.GDLAUNCHER;
+                    icon = "gdlauncher";
+                } else {
+                    if (additionalIcon != null && additionalIcon.startsWith("http")) {
+                        icon = additionalIcon;
+                    }
+
+                    if (!SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer) return;
+
+                    if (additionalIcon != null && !additionalIcon.startsWith("http")) {
+                        File iconFile = new File(additionalIcon);
+
+                        if (iconFile.exists()) {
+                            RPCImageServer.INSTANCE.processLauncherIcon(iconFile);
+                            icon = iconFile.getName();
+                        }
+                    }
                 }
 
             } catch (Exception ignored) {}
         }
+    }
 
+    @Nullable
+    private String getAdditionalIcon(JsonObject object) {
+        if (object.has("profileImagePath")) {
+            return object.getAsJsonPrimitive("profileImagePath").getAsString();
+        }
+
+        if (object.has("installedModpack")) {
+            JsonObject modpack = object.getAsJsonObject("installedModpack");
+            if (modpack.has("thumbnailUrl")) {
+                return modpack.getAsJsonPrimitive("thumbnailUrl").getAsString();
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -63,6 +99,6 @@ public final class CurseForge implements Launcher {
 
     @Override
     public String getPackIcon() {
-        return type == LauncherType.CURSEFORGE ? "curseforge" : "gdlauncher";
+        return icon;
     }
 }

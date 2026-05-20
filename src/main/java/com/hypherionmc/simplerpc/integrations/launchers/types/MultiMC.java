@@ -1,8 +1,10 @@
 package com.hypherionmc.simplerpc.integrations.launchers.types;
 
 import com.hypherionmc.simplerpc.api.utils.APIUtils;
+import com.hypherionmc.simplerpc.discord.SimpleRPCCore;
 import com.hypherionmc.simplerpc.enums.LauncherType;
 import com.hypherionmc.simplerpc.integrations.launchers.Launcher;
+import com.hypherionmc.simplerpc.util.rpcavatar.RPCImageServer;
 
 import java.io.File;
 import java.io.StringReader;
@@ -38,8 +40,16 @@ public final class MultiMC implements Launcher {
                 packName = properties.getProperty("name", "Unknown Pack");
                 icon = properties.getProperty("iconKey", "infinity");
 
-                if (prismInstance.exists() || System.getProperties().containsKey("org.prismlauncher.instance.name"))
+                if (prismInstance.exists() || System.getProperties().containsKey("org.prismlauncher.instance.name")) {
                     type = LauncherType.PRISM;
+
+                    File iconFile = new File(new File(APIUtils.CUR_DIR), "icon.png");
+
+                    if (iconFile.exists() && SimpleRPCCore.INSTANCE.getClientConfig().general.rpcImageServer) {
+                        RPCImageServer.INSTANCE.processLauncherIcon(iconFile);
+                        icon = iconFile.getName();
+                    }
+                }
 
                 hasLoaded = true;
             } catch (Exception ignored) {}

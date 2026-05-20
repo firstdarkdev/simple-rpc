@@ -28,6 +28,7 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
 
     // Keep this transient, or the config library will write this to the config file!!!
     private transient final SimpleRPCCore core;
+    public static transient final int version = 26;
 
     @Path("general")
     @SpecComment("General Config Section. See https://srpc.fdd-docs.com/introduction/")
@@ -176,6 +177,6 @@ public final class ClientConfig extends BaseRPCConfig<ClientConfig> {
 
     @Override
     public int getConfigVersion() {
-        return GeneralConfig.version;
+        return version;
     }
 }

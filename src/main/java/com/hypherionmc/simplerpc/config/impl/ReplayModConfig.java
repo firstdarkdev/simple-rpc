@@ -23,7 +23,7 @@ public final class ReplayModConfig extends BaseRPCConfig<ReplayModConfig> {
 
     @Path("general.version")
     @SpecComment("Internal Version Number. NO TOUCHY!")
-    public static int version = 2;
+    public int version = 2;
 
     @Path("replay_viewer")
     @SpecComment("The Replay Browser Event")
