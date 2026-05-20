@@ -190,7 +190,6 @@ public final class RichPresenceBuilder {
             return input;
 
         if (!RPCImageServer.INSTANCE.isUploading() && RPCImageServer.INSTANCE.getCachedImage(input) != null) {
-            System.out.println("Image already cached: " + RPCImageServer.INSTANCE.getCachedImage(input));
             return RPCImageServer.INSTANCE.getCachedImage(input);
         }
 

@@ -25,7 +25,7 @@ public final class GeneralConfig {
     public boolean debugging = false;
 
     @Path("launcherIntegration")
-    @SpecComment("Display the Icon and Pack Name in place of LargeImage from compatible launchers. DOES NOT WORK WITH CUSTOM APPS! ONLY THE DEFAULT ONE!")
+    @SpecComment("Enable the detection of certain compatible launchers, allowing you to use their name and icon in your config")
     public boolean launcherIntegration = false;
 
     @Path("rpcImageServer")
