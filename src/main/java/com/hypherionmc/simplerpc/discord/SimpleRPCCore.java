@@ -149,6 +149,11 @@ public final class SimpleRPCCore {
         SimpleRPCCore.replayModConfig = replayModConfig;
     }
 
+    public void shutdown() {
+        discordController.shutdownRichPresence();
+        taskManager.shutdownNow();
+    }
+
     /**
      * @author HypherionSA
      *

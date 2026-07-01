@@ -5,9 +5,9 @@
   "plugin": "com.hypherionmc.simplerpc.mixin.FabricMixinPlugin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-
   ],
   "client": [
+    "MinecraftMixin",
     "compat.GuiReplayOverlayMixin",
     "compat.GuiReplayViewerMixin",
     "compat.GuiSavingReplayMixin"
