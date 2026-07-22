@@ -7,4 +7,4 @@
 
 **Bug Fixes**:
 
-- Fix Shutdown hang on 26.2 and newer
+- Fix Shutdown hang on 26.2 and newer for neoforge. Was missed in previous fix

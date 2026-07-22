@@ -16,6 +16,8 @@ issueTrackerURL="https://github.com/firstdarkdev/simple-rpc/issues"
     A simple discord RPC plugin for modpacks
     '''
     displayTest = "NONE"
+    [[mixins]]
+        config="simplerpc.forge.mixins.json"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"

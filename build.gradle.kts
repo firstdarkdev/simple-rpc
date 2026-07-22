@@ -96,7 +96,8 @@ tasks.jar {
                 "Implementation-Timestamp" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date()),
                 "Timestamp" to System.currentTimeMillis(),
                 "Built-On-Java" to "${System.getProperty("java.vm.version")} (${System.getProperty("java.vm.vendor")})",
-                "Built-On-Minecraft" to orion.getProperty("minecraft_version")
+                "Built-On-Minecraft" to orion.getProperty("minecraft_version"),
+                "Mixin-Configs" to listOf("simplerpc.forge.mixins.json"),
             )
         )
     }
@@ -153,8 +154,8 @@ publisher {
     setReleaseType(ReleaseType.RELEASE)
     changelog.set(project.rootProject.file("changelog.md"))
     projectVersion.set("${project.version}")
-    displayName.set("[1.18.2 - 26.1.2] Simple RPC Universal ${project.version}")
-    setGameVersions("1.18.2", "1.19.2", "1.20", "1.20.1", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1.2")
+    displayName.set("[1.18.2 - 26.2] Simple RPC Universal ${project.version}")
+    setGameVersions("1.18.2", "1.19.2", "1.20", "1.20.1", "1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11", "26.1.2", "26.2")
     setLoaders("fabric", "forge", "neoforge", "quilt")
     artifact.set(tasks.shadowJar)
     setCurseEnvironment("both")
